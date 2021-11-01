@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   
   get "/test", to: "test#index"
 
-  #root 'test#index'
+  root 'test#index'
 end
