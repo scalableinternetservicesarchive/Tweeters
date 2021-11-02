@@ -12,6 +12,9 @@
         <%= link_to "About Us", root_path, class:"nav-link" %>
       </li>
       
+      <li class="nav-item">
+      <%= link_to "View Tweets", tweets_path, class:"nav-link" %>
+    </li>
 
       <% if user_signed_in? %>
          <li class="nav-item">
@@ -34,6 +37,7 @@
         <li class="nav-item">
           <%= link_to "Sign In", new_user_session_path, class:"nav-link" %>
         </li>
+
       <% end %>
 
       
