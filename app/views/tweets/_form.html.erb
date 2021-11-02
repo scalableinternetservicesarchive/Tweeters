@@ -11,26 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :content %>
     <%= form.text_area :content %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :likes %>
     <%= form.number_field :likes %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :comments %>
     <%= form.number_field :comments %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%=form.number_field :users_id, id: :tweets_users_id, class:"form-control", value:current_user.id, type: :hidden %>
   </div>
 
+  </br>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class:'btn btn-secondary'%>
   </div>
 <% end %>
