@@ -2,7 +2,7 @@ require "test_helper"
 
 class TweetsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @tweet = tweets(:one)
+    @tweet = tweet(:one)
   end
 
   test "should get index" do
