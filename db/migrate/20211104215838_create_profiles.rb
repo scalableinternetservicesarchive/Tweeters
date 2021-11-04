@@ -9,6 +9,5 @@ class CreateProfiles < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-    add_index :profiles, :user_id
   end
 end
