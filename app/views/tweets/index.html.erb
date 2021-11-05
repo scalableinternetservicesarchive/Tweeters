@@ -1,33 +1,29 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Tweets</h1>
+<% if user_signed_in? %>
+<%= render 'form', tweet: Tweet.new %>
+<br>
+<h1 class="display-6"> <%= current_user.email + " Feed" %> </h1>
+<br>
+<% else %>
+<h1 class="display-6"> Global Feed </h1>
+<% end %>
 
-<table class="table table-striped table-bordered table-hover">
-  <thead class="thead-dark">
-    <tr>
-      <th>Content</th>
-      <th>Likes</th>
-      <th>Comments</th>
-      <th>User ID</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% @tweets.each do |tweet| %>
+  <% @user = User.find(tweet.users_id) %>
+  <div class="card">
+    <div class="card-header">
+      <%= @user.email %>
+    </div>
+    <div class="card-body">
+      <p class="card-text"><%= tweet.content %></p>
+      <p class="card-text"><%= tweet.likes.to_s + " likes " %></p>
+      <p class="card-text"><%= tweet.comments.to_s + " comments " %></p>
 
-  <tbody>
-    <% @tweets.each do |tweet| %>
-      <tr>
-        <td><%= tweet.content %></td>
-        <td><%= tweet.likes %></td>
-        <td><%= tweet.comments %></td>
-        <td><%= tweet.users_id %></td>
-        <td><%= link_to 'Show', tweet %></td>
-        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
-        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <%= link_to 'Show', tweet, class:"btn btn-secondary" %>
+      <%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
+    </div>
+  </div>
+  <br>
+<% end %>
 
 <br>
-
-<%= link_to 'New Tweet', new_tweet_path, class:"btn btn-primary" %>
