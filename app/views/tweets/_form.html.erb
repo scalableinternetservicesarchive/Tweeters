@@ -1,0 +1,43 @@
+
+<%= form_with(model: tweet) do |form| %>
+  <% if tweet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
+
+      <ul>
+        <% tweet.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="container">
+ <div class="row">
+        <div class="col-md-8">          
+          <div class="field form-group">
+            <% form.label :content %>
+            <%= form.text_area :content, class: 'form-control blue-border-focus', :rows => 4  , placeholder:"What's on your mind?"%>
+          </div>
+        </div>
+        <div class="col-md-1">
+            <div class="actions">
+              <%= form.submit class:'btn btn-outline-primary'%>
+            </div>
+        </div>
+  </div>
+</div>
+  <div class="field form-group">
+    <% form.label :likes %>
+    <%= form.number_field :likes, value:0, type: :hidden %>
+  </div>
+
+  <div class="field form-group">
+    <% form.label :comments %>
+    <%= form.number_field :comments, value:0, type: :hidden %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.number_field :users_id, id: :tweets_users_id, class:"form-control", value:current_user.id, type: :hidden %>
+  </div>  
+<% end %>
