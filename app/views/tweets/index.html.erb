@@ -19,7 +19,7 @@
       <p class="card-text"><%= tweet.likes.to_s + " likes " %></p>
       <p class="card-text"><%= tweet.comments.to_s + " comments " %></p>
 
-      <%= link_to 'Show', tweet, class:"btn btn-secondary" %>
+      <%= link_to 'Show', tweet, class:"btn btn-secondary stretched-link" %>
       <%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
     </div>
   </div>
