@@ -5,15 +5,20 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse w-100 order-1 order-md-0 dual-collapse2" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto ">
       <li class="nav-item">
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search User" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
         </form>
       </li>
-      <% if user_signed_in? %>
+       </ul>
+  </div>
+ <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
+
+      <% if user_signed_in? %>           
         <li class="nav-item">
           <%= link_to "Profile", edit_user_registration_path, class:"nav-link" %>
         </li>
@@ -21,6 +26,7 @@
         <li class="nav-item">
           <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"nav-link" %>
         </li>
+        </ul>
       <% else %>
         <li class="nav-item">
           <%= link_to "Log In", new_user_session_path, class:"nav-link" %>
