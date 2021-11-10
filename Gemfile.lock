@@ -189,7 +189,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
-  devise
+  devise (~> 4.8)
   listen (~> 3.3)
   pg (~> 1.1)
   puma (~> 5.0)
