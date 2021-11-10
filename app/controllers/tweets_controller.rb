@@ -5,10 +5,12 @@ class TweetsController < ApplicationController
   # GET /tweets
   def index
     @tweets = Tweet.all
+    @comments = Comment.all
   end
 
   # GET /tweets/1
   def show
+    @comments = Comment.all
   end
 
   # GET /tweets/new
@@ -18,6 +20,7 @@ class TweetsController < ApplicationController
 
   # GET /tweets/1/edit
   def edit
+
   end
 
   # POST /tweets
