@@ -1,6 +1,7 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   # GET /tweets
   def index
@@ -15,7 +16,7 @@ class TweetsController < ApplicationController
 
   # GET /tweets/new
   def new
-    @tweet = Tweet.new
+    @tweet = current_user.tweets.build
   end
 
   # GET /tweets/1/edit
@@ -25,7 +26,7 @@ class TweetsController < ApplicationController
 
   # POST /tweets
   def create
-    @tweet = Tweet.new(tweet_params)
+    @tweet = current_user.tweets.build(tweet_params)
 
     if @tweet.save
       redirect_to @tweet, notice: 'Tweet was successfully created.'
@@ -47,6 +48,12 @@ class TweetsController < ApplicationController
   def destroy
     @tweet.destroy
     redirect_to tweets_url, notice: 'Tweet was successfully destroyed.'
+  end
+
+  # To limit modification access only to tweet owners
+  def correct_user
+    @tweet = current_user.tweets.find_by(id: params[:id])
+    redirect_to tweets_path, notice: "You're not authorized to modify this tweet!" if @tweet.nil?
   end
 
   private
