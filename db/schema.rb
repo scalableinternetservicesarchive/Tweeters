@@ -42,6 +42,18 @@ ActiveRecord::Schema.define(version: 2021_11_11_022507) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.text "bio"
+    t.date "joined"
+    t.string "location"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+  
   create_table "tweets", force: :cascade do |t|
     t.text "content"
     t.integer "likes"
