@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :likes
   resources :comments
+  resources :profiles
   resources :followers
   resources :tweets
   devise_for :users, controllers: {sessions: 'users/sessions'}
