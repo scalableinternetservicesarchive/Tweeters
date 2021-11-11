@@ -21,10 +21,22 @@ class LikesController < ApplicationController
 
   # POST /likes
   def create
+    @likes = Like.all
     @like = Like.new(like_params)
 
+    @likes.each do |temp_like|
+      if temp_like.tweet_id == @like.tweet_id && temp_like.user_id == @like.user_id
+        redirect_to tweets_url
+        return
+      end
+    end
+
+    @tweet = Tweet.find(@like.tweet_id)
+    
+    @tweet.likes = @tweet.likes + 1
+    @tweet.save
     if @like.save
-      redirect_to @like, notice: 'Like was successfully created.'
+      redirect_to tweets_url
     else
       render :new
     end
@@ -33,7 +45,7 @@ class LikesController < ApplicationController
   # PATCH/PUT /likes/1
   def update
     if @like.update(like_params)
-      redirect_to @like, notice: 'Like was successfully updated.'
+      redirect_to tweets_url
     else
       render :edit
     end
@@ -42,7 +54,7 @@ class LikesController < ApplicationController
   # DELETE /likes/1
   def destroy
     @like.destroy
-    redirect_to likes_url, notice: 'Like was successfully destroyed.'
+    redirect_to likes_url
   end
 
   private

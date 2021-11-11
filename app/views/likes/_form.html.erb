@@ -12,16 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
+    <% form.label :user_id %>
+    <%= form.number_field :user_id, value: curr_user, type: :hidden %>
   </div>
 
   <div class="field">
-    <%= form.label :tweet_id %>
-    <%= form.number_field :tweet_id %>
+    <% form.label :tweet_id %>
+    <%= form.number_field :tweet_id, value: curr_tweet, type: :hidden %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class:'btn btn-outline-primary' %>
   </div>
 <% end %>

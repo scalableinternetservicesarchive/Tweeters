@@ -8,7 +8,7 @@
 <h1 class="display-6"> Global Feed </h1>
 <% end %>
 
-<% @tweets.each do |tweet| %>
+<% @tweets.sort_by(&:created_at).reverse.each do |tweet| %>
   <% @user = User.find(tweet.users_id) %>
   <div class="card">
     <div class="card-header">
@@ -24,6 +24,11 @@
       <div class="row">
         <div class="col-md-3">  
           <p class="card-text"><%= tweet.likes.to_s + " likes " %></p>
+        </div>
+        <div class="col-md-3">
+        <% if user_signed_in? %>
+          <%= render partial: 'likes/form', locals: { like: Like.new, curr_user: current_user.id, curr_tweet: tweet.id } %>
+        <% end %>
         </div>
         <div class="col-md-3">  
           <p class="card-text"><%= tweet.comments.to_s + " comments " %></p>

@@ -6,7 +6,6 @@ class TweetsController < ApplicationController
   # GET /tweets
   def index
     @tweets = Tweet.all
-    @comments = Comment.all
   end
 
   # GET /tweets/1
@@ -29,7 +28,7 @@ class TweetsController < ApplicationController
     @tweet = current_user.tweets.build(tweet_params)
 
     if @tweet.save
-      redirect_to @tweet, notice: 'Tweet was successfully created.'
+      redirect_to tweets_url, notice: 'Tweet was successfully created.'
     else
       render :new
     end
@@ -38,7 +37,7 @@ class TweetsController < ApplicationController
   # PATCH/PUT /tweets/1
   def update
     if @tweet.update(tweet_params)
-      redirect_to @tweet, notice: 'Tweet was successfully updated.'
+      redirect_to tweets_url, notice: 'Tweet was successfully updated.'
     else
       render :edit
     end
