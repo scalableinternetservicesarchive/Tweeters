@@ -24,12 +24,12 @@ class LikesController < ApplicationController
     @likes = Like.all
     @like = Like.new(like_params)
 
-    @likes.each do |temp_like|
-      if temp_like.tweet_id == @like.tweet_id && temp_like.user_id == @like.user_id
-        redirect_to tweets_url
-        return
-      end
-    end
+    # @likes.each do |temp_like|
+    #   if temp_like.tweet_id == @like.tweet_id && temp_like.user_id == @like.user_id
+    #     redirect_to tweets_url
+    #     return
+    #   end
+    # end
 
     @tweet = Tweet.find(@like.tweet_id)    
     if !@tweet.nil?
