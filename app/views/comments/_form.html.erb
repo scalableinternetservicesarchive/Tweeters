@@ -13,13 +13,20 @@
 
   <div class="field">
     <% form.label :user_id %>
-    <%= form.number_field :user_id, value: curr_user, type: :hidden %>
+    <%if @comment.nil?%>
+    <%= form.number_field :user_id, value:curr_user, type: :hidden %>
+    <%else%>
+    <%= form.number_field :user_id, value: @comment.user_id, type: :hidden %>
+    <%end%>
   </div>
 
   <div class="field">
     <% form.label :tweet_id %>
-    <%= form.number_field :tweet_id, value: curr_tweet, type: :hidden %>
-  </div>
+    <%if @comment.nil?%>
+    <%= form.number_field :user_id, value:curr_tweet, type: :hidden %>
+    <%else%>
+    <%= form.number_field :user_id, value: @comment.user_id, type: :hidden %>
+    <%end%>  </div>
 
   <div class="field">
     <%= form.label :content %>
