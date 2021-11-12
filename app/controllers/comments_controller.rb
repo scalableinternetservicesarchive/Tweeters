@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @tweet = Tweet.find_by(id: @comment.tweet_id)   
 
-    if !@tweet.mil?
+    if !@tweet.nil?
       @tweet.comments+=1
       @tweet.save
     end
@@ -49,8 +49,8 @@ class CommentsController < ApplicationController
   def destroy
     @tweet = Tweet.find_by(id: @comment.tweet_id)
     @comment.destroy
-    if !@tweet.mil?
-      @tweet.comments+=1
+    if !@tweet.nil?
+      @tweet.comments-=1
       @tweet.save
     end
     redirect_to (@tweet.nil?)?(comments_url):(@tweet), notice: 'Comment was successfully destroyed.'

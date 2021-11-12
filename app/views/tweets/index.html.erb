@@ -26,8 +26,11 @@
           <p class="card-text"><%= tweet.likes.to_s + " likes " %></p>
         </div>
         <div class="col-md-3">
-        <% if user_signed_in? %>
+        <%like_of_user_on_tweet = Like.find_by(user_id: current_user.id, tweet_id: tweet.id)%>
+        <% if user_signed_in? && like_of_user_on_tweet.nil?%>
           <%= render partial: 'likes/form', locals: { like: Like.new, curr_user: current_user.id, curr_tweet: tweet.id } %>
+        <% elsif user_signed_in? %>
+          <%= link_to 'Unlike', like_of_user_on_tweet, method: :delete,  class:"btn btn-outline-danger" %>
         <% end %>
         </div>
         <div class="col-md-3">  
