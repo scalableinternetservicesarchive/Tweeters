@@ -12,7 +12,7 @@
   <% @user = User.find(tweet.users_id) %>
   <div class="card">
     <div class="card-header">
-      <%= @user.email%>
+      <%= @user.first_name%>
     </div>
     <div class="card-body">
       <p class="card-text"><%= tweet.content %></p>   

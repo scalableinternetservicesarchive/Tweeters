@@ -28,7 +28,7 @@
   <div class="card">
     <div class="card-header">
       <% @user = User.find(comment.user_id) %>
-      <%= @user.email %>
+      <%= @user.first_name %>
     </div>
     <div class="card-body">
       <p class="card-text"><%= comment.content %></p> 
@@ -37,12 +37,12 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3">  
-          <%= link_to 'Delete', @tweet, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %>
+          <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %>
         </div>
     </div>          
   </div>
-  <% end %>
   <br>
+  <% end %>
 <% end %>
 
 <br>
