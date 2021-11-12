@@ -32,9 +32,10 @@ class LikesController < ApplicationController
     end
 
     @tweet = Tweet.find(@like.tweet_id)    
-    @tweet.likes = @tweet.likes + 1
-    @tweet.save
-
+    if !@tweet.nil?
+      @tweet.likes = @tweet.likes + 1
+      @tweet.save
+    end
     if @like.save
       redirect_to tweets_url
     else
@@ -54,8 +55,10 @@ class LikesController < ApplicationController
   # DELETE /likes/1
   def destroy
     @tweet = Tweet.find(@like.tweet_id)
-    @tweet.likes-=1
-    @tweet.save
+    if !@tweet.nil?
+      @tweet.likes-=1
+      @tweet.save
+    end
     @like.destroy
     redirect_to tweets_url
   end
