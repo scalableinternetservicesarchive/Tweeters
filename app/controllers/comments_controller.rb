@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  #before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   # GET /comments
   def index
@@ -39,7 +41,7 @@ class CommentsController < ApplicationController
   # PATCH/PUT /comments/1
   def update
     if @comment.update(comment_params)
-      redirect_to @comment, notice: 'Comment was successfully updated.'
+      redirect_to @tweet, notice: 'Comment was successfully updated.'
     else
       render :edit
     end
@@ -54,6 +56,13 @@ class CommentsController < ApplicationController
       @tweet.save
     end
     redirect_to (@tweet.nil?)?(comments_url):(@tweet), notice: 'Comment was successfully destroyed.'
+  end
+
+  # To limit modification access only to comment owners
+  def correct_user
+    @tweet = Tweet.find_by(id: @comment.tweet_id)
+    comment_owner = @comment.user_id
+    redirect_to (@tweet.nil?)?(comments_url):(@tweet), notice: "You're not authorized to modify this comment!" if !user_signed_in?||current_user.id!=comment_owner
   end
 
   private

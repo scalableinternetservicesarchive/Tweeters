@@ -9,10 +9,12 @@
 <% end %>
 
 <% @tweets.sort_by(&:created_at).reverse.each do |tweet| %>
-  <% @user = User.find(tweet.users_id) %>
+<%next if User.where(id: tweet.users_id).empty?%>
+<% @user = User.find(tweet.users_id) %>
   <div class="card">
     <div class="card-header">
-      <%= @user.first_name%>
+      <%= @user.first_name%> at 
+      <%= tweet.created_at.strftime('%m/%d/%Y %H:%Mhrs') %>
     </div>
     <div class="card-body">
       <p class="card-text"><%= tweet.content %></p>   

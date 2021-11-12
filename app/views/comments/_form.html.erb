@@ -28,13 +28,18 @@
     <%= form.number_field :tweet_id, value: @comment.tweet_id, type: :hidden %>
     <%end%>  </div>
 
-  <div class="field">
-    <%= form.label "Comment" %>
-    <%= form.text_field :content %>
+  <div class="container">
+  <div class="row">
+      <div class = "col-md-5">      
+        <%= form.text_field :content, placeholder: "Comment", class:"form-control", style:"min-width: 100%"%>
+      </div>
+      <div class = "col">
+      <div class="actions">
+        <%= form.submit "Add Comment", class:'btn btn-outline-secondary' %>
+      </div>
+      </div>
+  </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit class:'btn btn-outline-primary' %>
-  </div>
   <br/>
 <% end %>
