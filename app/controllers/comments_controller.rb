@@ -22,11 +22,15 @@ class CommentsController < ApplicationController
   # POST /comments
   def create
     @comment = Comment.new(comment_params)
-    @tweet = Tweet.find_by(id: comment_params[:tweet_id])
-    @tweet.comments+=1
-    @tweet.save
+    @tweet = Tweet.find_by(id: @comment.tweet_id)   
+
+    if !@tweet.mil?
+      @tweet.comments+=1
+      @tweet.save
+    end
+
     if @comment.save
-      redirect_to @tweet, notice: 'Comment was successfully created.'
+      redirect_to (@tweet.nil?)?(@comment):(@tweet), notice: 'Comment was successfully created.'
     else
       render :new
     end
@@ -43,9 +47,13 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1
   def destroy
-    @comment.destroy
     @tweet = Tweet.find_by(id: @comment.tweet_id)
-    redirect_to @tweet, notice: 'Comment was successfully destroyed.'
+    @comment.destroy
+    if !@tweet.mil?
+      @tweet.comments+=1
+      @tweet.save
+    end
+    redirect_to (@tweet.nil?)?(comments_url):(@tweet), notice: 'Comment was successfully destroyed.'
   end
 
   private

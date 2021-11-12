@@ -2,7 +2,7 @@
 <% if user_signed_in? %>
 <%= render 'form', tweet: Tweet.new %>
 <br>
-<h1 class="display-6"> <%= current_user.email + " Feed" %> </h1>
+<h1 class="display-6"> <%= current_user.first_name + "'s Feed" %> </h1>
 <br>
 <% else %>
 <h1 class="display-6"> Global Feed </h1>
