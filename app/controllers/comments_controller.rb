@@ -24,10 +24,9 @@ class CommentsController < ApplicationController
   # POST /comments
   def create
     @comment = Comment.new(comment_params)
-    @tweet = Tweet.where(id: @comment.tweet_id)   
+    @tweet = Tweet.where(id: @comment.tweet_id).first   
 
-    if !@tweet.empty?
-      @tweet = @tweet.first   
+    if !@tweet.nil?
       @tweet.comments+=1
       @tweet.save
     end
@@ -50,10 +49,9 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1
   def destroy
-    @tweet = Tweet.where(id: @comment.tweet_id)
+    @tweet = Tweet.where(id: @comment.tweet_id).first
     @comment.destroy
-    if !@tweet.empty?
-      @tweet = @tweet.first   
+    if !@tweet.nil?
       @tweet.comments-=1
       @tweet.save
     end
@@ -62,9 +60,9 @@ class CommentsController < ApplicationController
 
   # To limit modification access only to comment owners
   def correct_user
-    @tweet = Tweet.where(id: @comment.tweet_id)
+    @tweet = Tweet.where(id: @comment.tweet_id).first
     comment_owner = @comment.user_id
-    redirect_to (@tweet.empty?)?(comments_url):(@tweet.first), notice: "You're not authorized to modify this comment!" if !user_signed_in?||current_user.id!=comment_owner
+    redirect_to (@tweet.nil?)?(comments_url):(@tweet), notice: "You're not authorized to modify this comment!" if !user_signed_in?||current_user.id!=comment_owner
   end
 
   private

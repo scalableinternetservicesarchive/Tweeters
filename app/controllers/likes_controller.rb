@@ -31,9 +31,8 @@ class LikesController < ApplicationController
     #   end
     # end
 
-    @tweet = Tweet.where(id: @like.tweet_id)    
-    if !@tweet.empty?
-      @tweet = @tweet.first   
+    @tweet = Tweet.where(id: @like.tweet_id).first    
+    if !@tweet.nil?
       @tweet.likes = @tweet.likes + 1
       @tweet.save
     end
@@ -55,9 +54,8 @@ class LikesController < ApplicationController
 
   # DELETE /likes/1
   def destroy
-    @tweet = Tweet.where(id: @like.tweet_id)
-    if !@tweet.empty?
-      @tweet = @tweet.first   
+    @tweet = Tweet.where(id: @like.tweet_id).first
+    if !@tweet.nil?
       @tweet.likes-=1
       @tweet.save
     end
