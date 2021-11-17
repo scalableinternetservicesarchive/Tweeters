@@ -7,7 +7,7 @@ services:
       - ./tmp/db:/var/lib/postgresql/data
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && sleep 15 && bundle exec rails db:reset && bundle exec rails s -p 3000 -b '0.0.0.0'"
     depends_on:
       - db
     ports:
