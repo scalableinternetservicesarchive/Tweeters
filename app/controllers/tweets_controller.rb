@@ -52,7 +52,7 @@ class TweetsController < ApplicationController
   # To limit modification access only to tweet owners
   def correct_user
     @tweet = current_user.tweets.find_by(id: params[:id])
-    redirect_to tweets_path, notice: "You're not authorized to modify this tweet!" if @tweet.nil?
+    redirect_to  request.referer, notice: "You're not authorized to modify this tweet!" if @tweet.nil?
   end
 
   private

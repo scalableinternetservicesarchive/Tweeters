@@ -22,7 +22,7 @@
 
 <div class="col-md-3">
 <%= link_to 'Edit', edit_tweet_path(@tweet) %> | 
-<%= link_to 'Delete',@tweet,  method: :delete , data: { confirm: 'Are you sure?' } if user_signed_in?&&current_user.id==@tweet.users_id%>
+<%= link_to 'Delete',@tweet,  method: :delete , data: { confirm: 'Are you sure?' }%>
 </div>
 
 </div>
@@ -37,12 +37,16 @@
 
 <% @comments.each do |comment| %>
   <% if comment.tweet_id == @tweet.id %>
-  <div class="card">
-    <div class="card-header">
+  <div class="card border-0" style="background: whitesmoke;">
+
       <% @user = User.find(comment.user_id) %>
-      <%= @user.first_name %> at 
-      <%= comment.updated_at.strftime('%m/%d/%Y %H:%Mhrs') %>
-    </div>
+      <div style="color: blue; background: white; margin: 2;">
+      <%= @user.first_name %> 
+        <span style="float:right;">
+          at <%= comment.updated_at.strftime('%m/%d/%Y %H:%Mhrs') %>
+        </span>
+      </div>
+
     <div class="card-body">
       <p class="card-text"><%= comment.content %></p> 
       
@@ -50,8 +54,8 @@
       <div class="container">
             <div class="row">
               <div class="col-md-3">  
-                <%= link_to 'Edit', edit_comment_path(comment), class:"btn btn-outline-primary" %>
-                <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %>
+                <%= link_to 'Edit', edit_comment_path(comment), class:"btn btn-outline-primary" if user_signed_in?&&current_user.id==comment.user_id%>
+                <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" if user_signed_in?&&current_user.id==comment.user_id%>
               </div>
           </div>          
         </div>
