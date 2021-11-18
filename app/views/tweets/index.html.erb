@@ -11,11 +11,14 @@
 <% @tweets.sort_by(&:created_at).reverse.each do |tweet| %>
 <%next if User.where(id: tweet.users_id).empty?%>
 <% @user = User.find(tweet.users_id) %>
-  <div class="card">
-    <div class="card-header">
-      <%= @user.first_name%> at 
-      <%= tweet.created_at.strftime('%m/%d/%Y %H:%Mhrs') %>
-    </div>
+<div class="shadow p-3 mb-5 bg-white rounded">
+  <div class="card px-2 border-0">
+    <h5 style="color: blue; background: white; margin: 2;">
+      <%= @user.first_name %> 
+        <span style="float:right;">
+          at <%= tweet.updated_at.strftime('%m/%d/%Y %H:%Mhrs') %>
+        </span>
+      </h5>
     <div class="card-body">
       <p class="card-text"><%= tweet.content %></p>   
 
@@ -44,6 +47,7 @@
           <%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %>
         </div>
     </div>          
+  </div>
   </div>
 
   <br>
