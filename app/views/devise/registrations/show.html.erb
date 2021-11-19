@@ -1,0 +1,39 @@
+
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-7">
+            <div class="card p-3 py-4">
+                <div class="text-center"> <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle"> </div>
+                <div class="text-center mt-3"> <span class="bg-secondary p-1 px-4 rounded text-white">Pro</span>
+                    <%@user = User.where(id: params[:id]).first%>
+                    <h5 class="mt-2 mb-0"><%=@user.first_name+" "+@user.last_name%></h5> <span>UI/UX Designer</span>
+                    <div class="px-4 mt-1">
+                        <p class="fonts"><%=(@user.bio.nil?) ? " adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.": @user.bio %><br/> </p>
+                    </div>
+                    <ul class="social-list">
+                        <li>Joined Tweeter on <%=@user.created_at%></li>
+                        <li>Located at <%=(@user.location.nil?)? "Santa Barbara, CA" : @user.location %></li>                       
+                    </ul>
+                    <%if current_user.id!=@user.id%>
+                    <div class="buttons">
+                     <div class="container" >
+                        <div class="row">
+                        <div class="col-sm">  
+                        <button class="btn btn-outline-primary px-4">Message</button> 
+                        </div>
+                        <div class="col-sm">  
+                        <%current_user_follows_this_user = Follower.find_by(user_id: @user.id, follower_id: current_user.id)%>
+                        <%if current_user_follows_this_user.nil?%>
+                        <%= render partial: 'followers/form', locals: { follower: Follower.new, follower_id: current_user.id, user_id: @user.id }%>
+                        <% else %>
+                        <%= link_to 'Unfollow', current_user_follows_this_user, method: :delete,  class:"btn btn-outline-danger" %>
+                        <% end %>
+                        
+                        </div>
+                    </div>
+                    <%end%>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
