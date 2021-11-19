@@ -8,11 +8,11 @@
                     <%@user = User.where(id: params[:id]).first%>
                     <h5 class="mt-2 mb-0"><%=@user.first_name+" "+@user.last_name%></h5> <span>UI/UX Designer</span>
                     <div class="px-4 mt-1">
-                        <p class="fonts"><%=(@user.bio.nil?) ? " adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.": @user.bio %><br/> </p>
+                        <p class="fonts"><%=(@user.bio.blank?) ? " adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.": @user.bio %><br/> </p>
                     </div>
                     <ul class="social-list">
                         <li>Joined Tweeter on <%=@user.created_at%></li>
-                        <li>Located at <%=(@user.location.nil?)? "Santa Barbara, CA" : @user.location %></li>                       
+                        <li>Located at <%=(@user.location.blank?)? "Santa Barbara, CA" : @user.location %></li>                       
                     </ul>
                     <%if current_user.id!=@user.id%>
                     <div class="buttons">
