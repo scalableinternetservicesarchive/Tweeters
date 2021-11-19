@@ -11,15 +11,15 @@
 <% @tweets.sort_by(&:created_at).reverse.each do |tweet| %>
 <%next if User.where(id: tweet.users_id).empty?%>
 <% @user = User.find(tweet.users_id) %>
-<div class="shadow p-3 mb-5 bg-white rounded">
-  <div class="card px-2 border-0">
-    <h5 style="color: blue; background: white; margin: 2;">
+<div class="shadow p-3 mb-5 rounded" style="background: #Ebf6fb;">
+  <div class="card px-2 border-0" style="background: #Ebf6fb;">
+    <h5 style="color: blue; margin: 2;">
       <%= @user.first_name %> 
         <span style="float:right;">
           at <%= tweet.updated_at.strftime('%m/%d/%Y %H:%Mhrs') %>
         </span>
       </h5>
-    <div class="card-body">
+    <div class="card-body1 card-body">
       <p class="card-text"><%= tweet.content %></p>   
 
       <%= link_to 'Show', tweet, class:"btn btn-outline-secondary stretched-link" %>

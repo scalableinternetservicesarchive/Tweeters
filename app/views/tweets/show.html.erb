@@ -4,8 +4,7 @@
 <p>
   <h2> <%= @tweet.content %></h2> 
   <br/> - 
-  <%= User.find_by(id:@tweet.users_id).first_name %></strong> 
-  <%= User.find_by(id:@tweet.users_id).last_name %></strong> 
+    <%= link_to  @user.first_name+" "+@user.last_name, "/users/profile/"+@user.id.to_s%>
 </p>
 <hr class="my-4"/>
 
@@ -39,9 +38,9 @@
   <% if comment.tweet_id == @tweet.id %>
   <div class="card border-0" style="background: whitesmoke;">
 
-      <% @user = User.find(comment.user_id) %>
-      <div style="color: blue; background: white; margin: 2;">
-      <%= @user.first_name %> 
+      <% user = User.find(comment.user_id) %>
+      <div style="color: blue;  margin: 2;">
+      <%= link_to  user.first_name, "/users/profile/"+user.id.to_s%>
         <span style="float:right;">
           at <%= comment.updated_at.strftime('%m/%d/%Y %H:%Mhrs') %>
         </span>
