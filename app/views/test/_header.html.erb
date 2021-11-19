@@ -29,7 +29,7 @@
               <a class="dropdown-item" href="/users/edit">Change Account Info</a>
               <%=link_to "Profile","/users/profile/"+(current_user.id).to_s, class:"dropdown-item"%>
               <a class="dropdown-item" href="/tweets">Home</a>
-              <a class="dropdown-item" href="/users/sign_out">Log Out</a>
+              <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"dropdown-item"%>
             </div>
           </div>
          
