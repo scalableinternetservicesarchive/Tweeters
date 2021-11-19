@@ -7,4 +7,13 @@ class User < ApplicationRecord
         has_many :tweets, foreign_key: :users_id
         has_many :followers
         has_many :profiles
+
+  def self.search(first_name)
+    if first_name
+      first_name.downcase!
+      where('LOWER(first_name) LIKE ?', "%#{first_name}%")
+    else
+      all
+    end
+  end
 end

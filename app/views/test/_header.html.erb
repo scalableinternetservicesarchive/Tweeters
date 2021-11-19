@@ -8,10 +8,10 @@
   <div class="collapse navbar-collapse w-100 order-1 order-md-0 dual-collapse2" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto ">
       <li class="nav-item">
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search User" aria-label="Search">
-          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <%= form_tag("/test", method: 'get') do %>
+          <%= text_field_tag(:search, params[:search]) %>
+          <%= submit_tag "Search", name: nil, :class => "btn btn-outline-primary" %>
+        <% end %>
       </li>
        </ul>
   </div>

@@ -1,0 +1,17 @@
+<%if !@users.blank?%>
+ <div class="page-content page-container" id="page-content">
+    <div class="padding">
+    <% @users.each do |user| %>   
+        <%= render partial: 'user_list', locals: { user: user, color: user.id, follower_id: current_user.id, user_id: user.id, link: "/users/profile/"+user.id.to_s}%>
+    <%end%>
+    </div>
+ </div>
+<%else%>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h3 style="color: blue; margin: 2;">
+        No such users found :/
+    </h3>
+<%end%>

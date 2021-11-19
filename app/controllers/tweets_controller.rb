@@ -5,12 +5,19 @@ class TweetsController < ApplicationController
 
   # GET /tweets
   def index
-    @tweets = Tweet.all
+    if user_signed_in?
+      @users_following = Follower.where(follower_id: current_user.id).to_a.map{|hash| hash.user_id}
+      @users_following<<current_user.id
+      @tweets = Tweet.where(users_id: @users_following)
+    else
+      @tweets = Tweet.all
+    end
   end
 
   # GET /tweets/1
   def show
     @comments = Comment.all
+    @user = User.find_by(id:@tweet.users_id)
   end
 
   # GET /tweets/new
