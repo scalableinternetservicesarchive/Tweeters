@@ -12,16 +12,22 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
+    <%if @follower.nil?%>
+    <%= form.number_field :user_id, value: user_id, type: :hidden %>
+    <%else%>
+    <%= form.number_field :user_id, value: @follower.user_id, type: :hidden %>
+    <%end%>
   </div>
 
   <div class="field">
-    <%= form.label :follower_id %>
-    <%= form.number_field :follower_id %>
+    <%if @follower.nil?%>
+    <%= form.number_field :follower_id, value: follower_id, type: :hidden %>
+    <%else%>
+    <%= form.number_field :follower_id, value: @follower.follower_id, type: :hidden %>
+    <%end%>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Follow", class: "btn btn-outline-primary" %>
   </div>
 <% end %>

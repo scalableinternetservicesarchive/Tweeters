@@ -24,7 +24,7 @@ class FollowersController < ApplicationController
     @follower = Follower.new(follower_params)
 
     if @follower.save
-      redirect_to @follower, notice: 'Follower was successfully created.'
+      redirect_to (request.referer.nil? ? @follower: request.referer)#, notice: 'Follower was successfully created.'
     else
       render :new
     end
@@ -42,7 +42,7 @@ class FollowersController < ApplicationController
   # DELETE /followers/1
   def destroy
     @follower.destroy
-    redirect_to followers_url, notice: 'Follower was successfully destroyed.'
+    redirect_to (request.referer.nil? ? followers_url : request.referer) #, notice: 'Follower was successfully destroyed.'
   end
 
   private
