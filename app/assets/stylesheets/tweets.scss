@@ -5,7 +5,14 @@
 .form-control { /* Chrome, Firefox, Opera, Safari 10.1+ */
     resize: none;
 }
-.card-body:hover {
-    background-color: whitesmoke;
+
+.card-body1:hover {
+    background-color: #c8e6fa;
 }
 
+.jumbotron { 
+    padding-bottom: 0; 
+    padding-top: 0;    
+    background:#Ebf6fb; 
+    color: blue
+}

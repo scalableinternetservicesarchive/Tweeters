@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  #before_action :authenticate_user!, except: [:index, :show]
 
   # GET /comments
   def index
@@ -22,9 +23,15 @@ class CommentsController < ApplicationController
   # POST /comments
   def create
     @comment = Comment.new(comment_params)
+    @tweet = Tweet.where(id: @comment.tweet_id).first   
+
+    if !@tweet.nil?
+      @tweet.comments+=1
+      @tweet.save
+    end
 
     if @comment.save
-      redirect_to @comment, notice: 'Comment was successfully created.'
+      redirect_to (@tweet.nil?)?(@comment):(@tweet), notice: 'Comment was successfully created.'
     else
       render :new
     end
@@ -33,7 +40,7 @@ class CommentsController < ApplicationController
   # PATCH/PUT /comments/1
   def update
     if @comment.update(comment_params)
-      redirect_to @comment, notice: 'Comment was successfully updated.'
+      redirect_to (@tweet.nil?)?(@comment):(@tweet), notice: 'Comment was successfully updated.'
     else
       render :edit
     end
@@ -42,13 +49,18 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   def destroy
     @comment.destroy
-    redirect_to comments_url, notice: 'Comment was successfully destroyed.'
+    if !@tweet.nil?
+      @tweet.comments-=1
+      @tweet.save
+    end
+    redirect_to (@tweet.nil?)?(comments_url):(@tweet), notice: 'Comment was successfully destroyed.'
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = Comment.find(params[:id])
+      @tweet = Tweet.where(id: @comment.tweet_id).first
     end
 
     # Only allow a list of trusted parameters through.

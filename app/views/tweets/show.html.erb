@@ -2,47 +2,67 @@
 
 
 <p>
-  <strong>Content:</strong>
-  <%= @tweet.content %>
+  <h2> <%= @tweet.content %></h2> 
+  <br/> - 
+    <%= link_to  @user.first_name+" "+@user.last_name, "/users/profile/"+@user.id.to_s%>
 </p>
+<hr class="my-4"/>
 
-<p>
-  <strong>Likes:</strong>
-  <%= @tweet.likes %>
-</p>
+<div class="container">
+<div class="row">
 
-<p>
-  <strong>Comments:</strong>
-  <%= @tweet.comments %>
-</p>
-
-<%= link_to 'Edit', edit_tweet_path(@tweet) %> |
+<div class="col-md-3">
+  <%= @tweet.likes %> Likes
 </div>
 
+<div class="col-md-3">
+  <%= @tweet.comments %> Comments
+</div>
+
+<div class="col-md-3">
+<%= link_to 'Edit', edit_tweet_path(@tweet) %> | 
+<%= link_to 'Delete',@tweet,  method: :delete , data: { confirm: 'Are you sure?' }%>
+</div>
+
+</div>
+</div>
+
+<br/>
 <% if user_signed_in? %>
-<%= render partial: 'comments/form', locals: { comment: Comment.new, curr_user: current_user.id, curr_tweet: @tweet.id } %>
+<%= render partial: 'comments/form', locals: { comment: Comment.new, curr_user: current_user.id, curr_tweet: @tweet.id }%>
 <% end %>
+</div>
+
 
 <% @comments.each do |comment| %>
   <% if comment.tweet_id == @tweet.id %>
-  <div class="card">
-    <div class="card-header">
-      <% @user = User.find(comment.user_id) %>
-      <%= @user.email %>
-    </div>
+  <div class="card border-0" style="background: whitesmoke;">
+
+      <% user = User.find(comment.user_id) %>
+      <div style="color: blue;  margin: 2;">
+      <%= link_to  user.first_name, "/users/profile/"+user.id.to_s%>
+        <span style="float:right;">
+          at <%= comment.updated_at.strftime('%m/%d/%Y %H:%Mhrs') %>
+        </span>
+      </div>
+
     <div class="card-body">
       <p class="card-text"><%= comment.content %></p> 
       
-    </div></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">  
-          <%= link_to 'Delete', @tweet, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %>
+
+      <div class="container">
+            <div class="row">
+              <div class="col-md-3">  
+                <%= link_to 'Edit', edit_comment_path(comment), class:"btn btn-outline-primary" if user_signed_in?&&current_user.id==comment.user_id%>
+                <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" if user_signed_in?&&current_user.id==comment.user_id%>
+              </div>
+          </div>          
         </div>
-    </div>          
-  </div>
-  <% end %>
+
+    </div></div>
+    
   <br>
+  <% end %>
 <% end %>
 
 <br>
