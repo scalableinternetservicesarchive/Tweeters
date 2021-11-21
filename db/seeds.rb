@@ -6,7 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 User.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('users')
 Tweet.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('tweets')
 
 all_tweets = [
  "Take time to know yourself.",
@@ -62,7 +64,7 @@ tweets = []
 for i in 1..data_load[:users] do  # don't use .times, then id will be 0, bad.
 
   d = {
-      id: i,
+      # id: i,
       email:   "user#{i}@cs291A.com",
       encrypted_password:    PASSWORD_HASH,
       reset_password_token:  "reset_token_#{i}",

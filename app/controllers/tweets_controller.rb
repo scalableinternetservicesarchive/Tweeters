@@ -5,8 +5,9 @@ class TweetsController < ApplicationController
 
   # GET /tweets
   def index
-    @tweets = Tweet.all
-    @comments = Comment.all
+    # @tweets = Tweet.all
+    # @tweets = Tweet.paginate(:page => params[:page], :per_page => 4)
+    @tweets = Tweet.paginate(:page => params[:page]).order('id DESC')
   end
 
   # GET /tweets/1

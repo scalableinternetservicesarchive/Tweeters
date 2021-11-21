@@ -15,26 +15,26 @@
       <%= @user.email%>
     </div>
     <div class="card-body">
-      <p class="card-text"><%= tweet.content %></p>   
+      <p class="card-text"><%= tweet.content %></p>
 
       <%= link_to 'Show', tweet, class:"btn btn-outline-secondary stretched-link" %>
-      
+
     </div></div>
     <div class="container">
       <div class="row">
-        <div class="col-md-3">  
+        <div class="col-md-3">
           <p class="card-text"><%= tweet.likes.to_s + " likes " %></p>
         </div>
-        <div class="col-md-3">  
+        <div class="col-md-3">
           <p class="card-text"><%= tweet.comments.to_s + " comments " %></p>
         </div>
-        <div class="col-md-3">  
+        <div class="col-md-3">
           <%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %>
         </div>
-    </div>          
+    </div>
   </div>
-
   <br>
 <% end %>
+<%= will_paginate @tweets, renderer: BootstrapPagination::Rails %>
 
 <br>

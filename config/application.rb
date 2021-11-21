@@ -15,6 +15,9 @@ require "action_view/railtie"
 require "sprockets/railtie"
 require "rails/test_unit/railtie"
 require "devise"
+require 'will_paginate'
+require 'will_paginate/active_record'
+require "will_paginate-bootstrap"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -35,6 +38,6 @@ module App
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-    config.web_console.permissions = '172.19.0.1'
+    #config.web_console.permissions = '172.19.0.1'
   end
 end
