@@ -2,39 +2,56 @@
 <% if user_signed_in? %>
 <%= render 'form', tweet: Tweet.new %>
 <br>
-<h1 class="display-6"> <%= current_user.email + " Feed" %> </h1>
+<h1 class="display-6"> <%= current_user.first_name + "'s Feed" %> </h1>
 <br>
 <% else %>
 <h1 class="display-6"> Global Feed </h1>
 <% end %>
 
 <% @tweets.each do |tweet| %>
-  <% @user = User.find(tweet.users_id) %>
-  <div class="card">
-    <div class="card-header">
-      <%= @user.email%>
-    </div>
-    <div class="card-body">
-      <p class="card-text"><%= tweet.content %></p>   
+<%next if User.where(id: tweet.users_id).empty?%>
+<% @user = User.find(tweet.users_id) %>
+<div class="shadow p-3 mb-5 rounded" style="background: #Ebf6fb;">
+  <div class="card px-2 border-0" style="background: #Ebf6fb;">
+    <h5 style="color: blue; margin: 2;">
+      <%= @user.first_name %>
+        <span style="float:right;">
+          at <%= tweet.updated_at.strftime('%m/%d/%Y %H:%Mhrs') %>
+        </span>
+      </h5>
+    <div class="card-body1 card-body">
+      <p class="card-text"><%= tweet.content %></p>
 
       <%= link_to 'Show', tweet, class:"btn btn-outline-secondary stretched-link" %>
-      
+
     </div></div>
     <div class="container">
       <div class="row">
-        <div class="col-md-3">  
+        <div class="col-md-3">
           <p class="card-text"><%= tweet.likes.to_s + " likes " %></p>
         </div>
-        <div class="col-md-3">  
+        <div class="col-md-3">
+        <% if user_signed_in? %>
+          <%like_of_user_on_tweet = Like.find_by(user_id: current_user.id, tweet_id: tweet.id)%>
+          <%if like_of_user_on_tweet.nil?%>
+          <%= render partial: 'likes/form', locals: { like: Like.new, curr_user: current_user.id, curr_tweet: tweet.id } %>
+          <% else %>
+          <%= link_to 'Unlike', like_of_user_on_tweet, method: :delete,  class:"btn btn-outline-danger" %>
+          <% end %>
+        <% end %>
+        </div>
+        <div class="col-md-3">
           <p class="card-text"><%= tweet.comments.to_s + " comments " %></p>
         </div>
-        <div class="col-md-3">  
+        <div class="col-md-3">
           <%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %>
         </div>
-    </div>          
+    </div>
   </div>
+</div>
 
   <br>
 <% end %>
+<%= will_paginate @tweets, renderer: BootstrapPagination::Rails %>
 
 <br>

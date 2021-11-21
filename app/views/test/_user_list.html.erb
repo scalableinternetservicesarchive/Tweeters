@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-sm-10">
+        <div class="list list-row block">
+
+            <div class="list-item" data-id="19">
+                <%if color%2==0%>
+                <div><span class="w-48 avatar gd-warning"><%= link_to user.first_name[0], link, :class=>"w-48 avatar gd-warning" %></span></div>
+                <%else%>
+                <div><span class="w-48 avatar gd-primary"><%= link_to user.first_name[0], link, :class=>"w-48 avatar gd-primary" %></span></div>
+                <%end%>
+                <div class="flex"> 
+                        <%= link_to user.first_name+" "+user.last_name, link, :class=>"item-author text-color" %>      
+
+                    <div class="item-except text-muted text-sm h-1x">For what reason would it be advisable for me to think about business content?</div>
+                </div>
+                <div class="no-wrap">
+                    <div class="item-date text-muted text-sm d-none d-md-block"><%=user.created_at%></div>
+                </div>
+
+            </div>
+        <%= render partial: 'devise/registrations/message_follow', locals: { follower_id: follower_id, user_id: user_id }%>
+    </div>
+</div>
+</div>

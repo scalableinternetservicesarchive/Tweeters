@@ -15,6 +15,8 @@ gem 'sass-rails', '>= 6'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'devise', '~> 4.8'
+gem 'will_paginate', '~> 3.3.0'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
