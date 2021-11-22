@@ -37,7 +37,7 @@ all_tweets = [
  "Make what is valuable important.",
  "Believe in yourself."]
 
-data_load = {users: 50, tweets_per_user: 20}
+data_load = {users: 500, tweets_per_user: 20}
 
 no_of_batches = 5
 user_batch_size = data_load[:users] / no_of_batches
@@ -63,6 +63,18 @@ users = []
 tweets = []
 for i in 1..data_load[:users] do  # don't use .times, then id will be 0, bad.
 
+    # t.string "email", default: "", null: false
+    # t.string "encrypted_password", default: "", null: false
+    # t.string "reset_password_token"
+    # t.datetime "reset_password_sent_at"
+    # t.datetime "remember_created_at"
+    # t.datetime "created_at", precision: 6, null: false
+    # t.datetime "updated_at", precision: 6, null: false
+    # t.string "first_name"
+    # t.string "last_name"
+    # t.text "bio"
+    # t.string "location"
+
   d = {
       # id: i,
       email:   "user#{i}@cs291A.com",
@@ -71,13 +83,16 @@ for i in 1..data_load[:users] do  # don't use .times, then id will be 0, bad.
       reset_password_sent_at:DT_NOW,
       remember_created_at:   DT_NOW,
       created_at: DT_NOW,
-      updated_at: DT_NOW
+      updated_at: DT_NOW,
+      first_name: "First_name_#{i}",
+      last_name: "Second_name_#{i}",
+      bio: all_tweets.sample,
+      location: "Santa Barbara"
       }
   users.append(d.clone)
 
   for j in 1..data_load[:tweets_per_user] do
     new_tweet = {
-        id: (i-1)*data_load[:tweets_per_user] + j,
         content:   all_tweets.sample,
         likes:     0,
         comments:  0,
