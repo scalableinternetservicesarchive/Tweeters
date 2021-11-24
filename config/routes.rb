@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get "/", to: redirect('/tweets')
   get "/test", to: "test#index"
   get "/test/:search", to: "test#search"
-  get "/conversation", to: "messages#conversation"
+  get "/conversation/:other", to: "messages#conversation"
   devise_scope :user do
     get "/users/profile/:id", to: "devise/registrations#show"
   end

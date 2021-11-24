@@ -11,10 +11,8 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <% form.label :content %>
-    <%= form.text_area :content %>
-  </div>
+  
+
 
   <div class="field">
     <%if @message.nil?%>
@@ -26,10 +24,23 @@
 
   <div class="field">
     <% form.label :from_user %>
-    <%= form.number_field :from_user, value: current_user.id, type: :hidden %>
+    <%= form.number_field :from_user, value: current_user.id, type: :hidden if user_signed_in?%>
   </div>
 
-  <div class="actions">
-    <%= form.submit "Send Message", class: "btn btn-outline-primary"%>
+<div class="container">
+  <div class="row">
+    <div class="col">  
+    <div class="field">
+        <% form.label :content %>  
+
+        <%= form.text_area :content, placeholder: "Type your message", class:"form-control", rows: 1, cols: 100, style: 'width:100%;'%>
+    </div>
+    </div>
+    <div class="col">  
+    <div class="actions">
+        <%= form.submit "Send", class: "btn btn-primary"%>
+    </div>
+    </div>
   </div>
+</div>
 <% end %>
