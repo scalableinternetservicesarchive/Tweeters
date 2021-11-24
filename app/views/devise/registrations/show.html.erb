@@ -14,7 +14,8 @@
                         <li>Joined Tweeter on <%=@user.created_at%></li>
                         <li>Located at <%=(@user.location.blank?)? "Santa Barbara, CA" : @user.location %></li>                       
                     </ul>
-                    <%= render partial: 'message_follow', locals: { follower_id: current_user.id, user_id: @user.id }%>
+                    <%= render partial: 'message_follow', locals: { follower_id: current_user.id, user_id: @user.id } if user_signed_in?%>
+                </div>                    
                 </div>
             </div>
         </div>

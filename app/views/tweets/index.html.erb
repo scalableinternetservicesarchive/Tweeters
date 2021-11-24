@@ -8,6 +8,15 @@
 <h1 class="display-6"> Global Feed </h1>
 <% end %>
 
+<%if @tweets.blank?%>
+<br/>
+<br/>
+<br/>
+<h2>
+     Follow other users, make your own tweets to see more content!
+</h2>
+<%end%>
+
 <% @tweets.each do |tweet| %>
 <%next if User.where(id: tweet.users_id).empty?%>
 <% @user = User.find(tweet.users_id) %>
