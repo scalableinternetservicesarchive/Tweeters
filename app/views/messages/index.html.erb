@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Conversations</h1>
+
+    <% @finaldata.each do |other_user| %>
+    <% @user = User.find(other_user) %>
+    <h2> <%= @user.first_name %> </h2>
+    <%= link_to 'conversation', "/messages/" + other_user.to_s%>
+    <br>
+    <% end %>
+
+
+<br>

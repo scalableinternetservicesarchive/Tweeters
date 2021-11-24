@@ -15,6 +15,7 @@
                         <li>Located at <%=(@user.location.blank?)? "Santa Barbara, CA" : @user.location %></li>                       
                     </ul>
                     <%= render partial: 'message_follow', locals: { follower_id: current_user.id, user_id: @user.id }%>
+                </div>                    
                 </div>
             </div>
         </div>

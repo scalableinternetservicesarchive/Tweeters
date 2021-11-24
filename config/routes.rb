@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :messages
   resources :likes
   resources :comments
   resources :profiles
@@ -9,9 +10,10 @@ Rails.application.routes.draw do
   get "/", to: redirect('/tweets')
   get "/test", to: "test#index"
   get "/test/:search", to: "test#search"
-
+  get "/conversation", to: "messages#conversation"
   devise_scope :user do
     get "/users/profile/:id", to: "devise/registrations#show"
   end
+
   root 'test#index'
 end
