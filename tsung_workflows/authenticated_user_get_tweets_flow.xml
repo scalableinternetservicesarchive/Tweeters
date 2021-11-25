@@ -1,5 +1,3 @@
-
-   
 <?xml version="1.0"?>
 <!DOCTYPE tsung SYSTEM "/usr/local/share/tsung/tsung-1.0.dtd" [] >
 <tsung loglevel="notice">
@@ -8,28 +6,28 @@
   </clients>
 
   <servers>
-    <server host="localhost" port="3000" type="tcp"></server>
+    <!-- <server host="localhost" port="3000" type="tcp"></server> -->
      <!-- <server host="samridhi.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
-    <!-- <server host="nikunjbaid1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
+    <server host="nikunjbaid2.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
 
   <load>
     <arrivalphase phase="1" duration="5" unit="second">
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
-    <!-- <arrivalphase phase="2" duration="5" unit="second">
+    <arrivalphase phase="2" duration="5" unit="second">
       <users arrivalrate="2" unit="second"></users>
-    </arrivalphase> -->
-    <!-- <arrivalphase phase="3" duration="5" unit="second">
+    </arrivalphase>
+    <arrivalphase phase="3" duration="5" unit="second">
       <users arrivalrate="4" unit="second"></users>
-    </arrivalphase> -->
-    <!-- <arrivalphase phase="4" duration="5" unit="second">
+    </arrivalphase>
+    <arrivalphase phase="4" duration="5" unit="second">
       <users arrivalrate="8" unit="second"></users>
     </arrivalphase>
     <arrivalphase phase="5" duration="5" unit="second">
       <users arrivalrate="16" unit="second"></users>
-    </arrivalphase> -->
-    <!-- <arrivalphase phase="6" duration="5" unit="second">
+    </arrivalphase>
+    <arrivalphase phase="6" duration="5" unit="second">
       <users arrivalrate="32" unit="second"></users>
     </arrivalphase>
     <arrivalphase phase="7" duration="5" unit="second">
@@ -43,7 +41,7 @@
     </arrivalphase>
     <arrivalphase phase="10" duration="5" unit="second">
       <users arrivalrate="512" unit="second"></users>
-    </arrivalphase> -->
+    </arrivalphase>
   </load>
 
   <options>
@@ -67,8 +65,8 @@
 
         <request subst="true">
           <http url="/users/sign_in" version="1.1" method="POST"
-            contents="user[email]=nik2@mail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
-                      user[password]=11111122&amp;commit=Log+in"
+            contents="user[email]=cool_guy@mail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      user[password]=11111111&amp;commit=Log+in"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
