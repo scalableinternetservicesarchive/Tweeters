@@ -2,7 +2,9 @@
  <div class="page-content page-container" id="page-content">
     <div class="padding">
     <% @users.each do |user| %>   
-        <%= render partial: 'user_list', locals: { user: user, color: user.id, follower_id: current_user.id, user_id: user.id, link: "/users/profile/"+user.id.to_s}%>
+        <%current_user_id = -1%>
+        <%current_user_id = current_user.id if user_signed_in?%>
+        <%= render partial: 'user_list', locals: { user: user, color: user.id, follower_id: current_user_id, user_id: user.id, link: "/users/profile/"+user.id.to_s}%>
     <%end%>
     </div>
  </div>

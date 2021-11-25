@@ -18,7 +18,7 @@
                 </div>
 
             </div>
-        <%= render partial: 'devise/registrations/message_follow', locals: { follower_id: follower_id, user_id: user_id }%>
+        <%= render partial: 'devise/registrations/message_follow', locals: { follower_id: follower_id, user_id: user_id } if user_signed_in?%>
     </div>
 </div>
 </div>

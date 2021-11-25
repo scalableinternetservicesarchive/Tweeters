@@ -1,4 +1,4 @@
-class TestController < ApplicationController
+class TestController < ApplicationController  
   def search
     render :index
   end

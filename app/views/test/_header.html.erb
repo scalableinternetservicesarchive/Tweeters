@@ -36,6 +36,9 @@
         </li>
 
         <li class="nav-item">
+          <%= link_to "Messages", "/conversation/" + -1.to_s	, class:"nav-link"%>
+        </li>
+        <li class="nav-item"> 
           <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"nav-link" %>
         </li>
         </ul>
