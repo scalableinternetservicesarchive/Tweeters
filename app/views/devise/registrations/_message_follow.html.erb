@@ -3,7 +3,8 @@
     <div class="container" >
     <div class="row justify-content-md-center">
     <div class="col-lg-3">  
-    <button class="btn btn-outline-primary px-4">Message</button> 
+    <%= link_to 'Message', "/conversation/" + user_id.to_s,class:"btn btn-outline-primary" %>
+
     </div>
     <div class="col-lg-2">  
     <%current_user_follows_this_user = Follower.find_by(user_id: user_id, follower_id: follower_id)%>

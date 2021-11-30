@@ -8,23 +8,34 @@
 <h1 class="display-6"> Global Feed </h1>
 <% end %>
 
+<%if @tweets.blank?%>
+<br/>
+<br/>
+<br/>
+<h2>
+     Follow other users, make your own tweets to see more content!
+</h2>
+<%end%>
+
+<% cache(cache_key_for_tweet_list) do %>
 <% @tweets.each do |tweet| %>
 <%next if User.where(id: tweet.users_id).empty?%>
 <% @user = User.find(tweet.users_id) %>
+<% cache(cache_key_for_user(@user)) do %>
 <div class="shadow p-3 mb-5 rounded" style="background: #Ebf6fb;">
   <div class="card px-2 border-0" style="background: #Ebf6fb;">
     <h5 style="color: blue; margin: 2;">
-      <%= @user.first_name %>
+      <%= link_to @user.first_name, "/users/profile/"+ @user.id.to_s %>
         <span style="float:right;">
           at <%= tweet.updated_at.strftime('%m/%d/%Y %H:%Mhrs') %>
         </span>
       </h5>
+      <%= link_to tweet do %>
     <div class="card-body1 card-body">
-      <p class="card-text"><%= tweet.content %></p>
-
-      <%= link_to 'Show', tweet, class:"btn btn-outline-secondary stretched-link" %>
-
+      <h3 class="card-text"><%= tweet.content %></h3>     
     </div></div>
+    <% end %>
+
     <div class="container">
       <div class="row">
         <div class="col-md-3">
@@ -51,6 +62,8 @@
 </div>
 
   <br>
+<% end %>
+<% end %>
 <% end %>
 <%= will_paginate @tweets, renderer: BootstrapPagination::Rails %>
 
