@@ -11,10 +11,10 @@
                 <div class="flex"> 
                         <%= link_to user.first_name+" "+user.last_name, link, :class=>"item-author text-color" %>      
 
-                    <div class="item-except text-muted text-sm h-1x">For what reason would it be advisable for me to think about business content?</div>
+                    <div class="item-except text-muted text-sm h-1x"><%=(user.bio.blank?) ? "For what reason would it be advisable for me to think about business content?": user.bio %></div>
                 </div>
                 <div class="no-wrap">
-                    <div class="item-date text-muted text-sm d-none d-md-block"><%=user.created_at%></div>
+                    <div class="item-date text-muted text-sm d-none d-md-block align-self-end">Joined: <%=user.created_at.strftime('%m/%d/%Y')%></div>
                 </div>
 
             </div>
