@@ -2,6 +2,11 @@ class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception, prepend: true
 
     before_action :configure_permitted_parameters, if: :devise_controller?
+    around_action :switch_time_zone, :if => :current_user
+
+     def switch_time_zone(&block)
+     Time.use_zone("Pacific Time (US & Canada)", &block)
+     end
 
     protected
 
