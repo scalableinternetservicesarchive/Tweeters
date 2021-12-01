@@ -81,7 +81,7 @@
         </request> -->
 
         <request subst="true">
-          <http url="/tweets/10002" version="1.1" method="GET"
+          <http url="/tweets/" version="1.1" method="GET"
             contents="authenticity_token=%%_authenticity_token%%"
             content_type="application/x-www-form-urlencoded">
           </http>
