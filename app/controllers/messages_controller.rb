@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
   end
 
   def conversation
-    @other_id =  params[:other]
+    @other_id =  params[:other].to_i
 
 
     @user_all = Message.where(to_user: current_user.id).or(Message.where(from_user: current_user.id)).map{ |record|
@@ -23,9 +23,9 @@ class MessagesController < ApplicationController
 
     @chatMessages = Message.where(to_user: @other_id, from_user: current_user.id).or(Message.where(from_user: @other_id, to_user: current_user.id)).map{|msg|
       if msg.from_user.to_i==current_user.id
-        {from: "You", body: msg.content, time: msg.created_at, ava: 7}
+        {from: "You", body: msg.content, time: msg.created_at, ava: current_user.id%7+1}
       else
-        {from: @other_user.first_name, body: msg.content, time: msg.created_at, ava: 6}
+        {from: @other_user.first_name, body: msg.content, time: msg.created_at, ava: @other_id%7+1}
       end
     }
 
