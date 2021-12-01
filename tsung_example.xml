@@ -9,7 +9,7 @@
 
   <servers>
     <!-- <server host="localhost" port="3000" type="tcp"></server> -->
-     <server host="samridhipre.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+     <server host="workflow1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
     <!-- <server host="nikunjbaid1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
   </servers>
 
@@ -65,18 +65,16 @@
 
         <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> <var name="authenticity_token" /> </setdynvars>
 
-        <request subst="true">
+        <!-- <request subst="true">
           <http url="/users/sign_in" version="1.1" method="POST"
             contents="user[email]=samridhi@gmail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
                       user[password]=samridhi&amp;commit=Log+in"
             content_type="application/x-www-form-urlencoded">
           </http>
-        </request>
+        </request> -->
 
         <request subst="true">
-          <http url="/tweets" version="1.1" method="GET"
-            contents="authenticity_token=%%_authenticity_token%%"
-            content_type="application/x-www-form-urlencoded">
+          <http url="/tweets" version="1.1" method="GET">
           </http>
         </request>
 
