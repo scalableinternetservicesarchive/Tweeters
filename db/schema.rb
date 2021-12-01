@@ -68,8 +68,8 @@ ActiveRecord::Schema.define(version: 2021_11_24_022836) do
     t.integer "comments"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "users_id"
-    t.index ["users_id"], name: "index_tweets_on_users_id"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_tweets_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

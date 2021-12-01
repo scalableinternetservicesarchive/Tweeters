@@ -18,7 +18,7 @@ class TweetsController < ApplicationController
   # GET /tweets/1
   def show
     @comments = Comment.all
-    @user = User.find_by(id:@tweet.users_id)
+    @user = User.find_by(id:@tweet.user_id)
   end
 
   # GET /tweets/new
@@ -71,6 +71,6 @@ class TweetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tweet_params
-      params.require(:tweet).permit(:content, :likes, :comments, :users_id)
+      params.require(:tweet).permit(:content, :likes, :comments, :user_id)
     end
 end
