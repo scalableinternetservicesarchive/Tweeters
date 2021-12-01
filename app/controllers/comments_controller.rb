@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-    @comments = Comment.all
+    @comments = Comment.paginate(:page => params[:page]).order('id DESC')
   end
 
   # GET /comments/1
