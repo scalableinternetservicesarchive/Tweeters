@@ -8,8 +8,8 @@
   </clients>
 
   <servers>
-    <server host="localhost" port="3000" type="tcp"></server>
-     <!-- <server host="samridhi.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
+    <!-- <server host="localhost" port="3000" type="tcp"></server> -->
+     <server host="samridhi.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
     <!-- <server host="nikunjbaid1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
   </servers>
 
@@ -67,14 +67,14 @@
 
         <request subst="true">
           <http url="/users/sign_in" version="1.1" method="POST"
-            contents="user[email]=nik2@mail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
-                      user[password]=11111122&amp;commit=Log+in"
+            contents="user[email]=samridhi@gmail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      user[password]=samridhi&amp;commit=Log+in"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
 
         <request subst="true">
-          <http url="/tweets" version="1.1" method="GET"
+          <http url="/test?search=" version="1.1" method="GET"
             contents="authenticity_token=%%_authenticity_token%%"
             content_type="application/x-www-form-urlencoded">
           </http>
