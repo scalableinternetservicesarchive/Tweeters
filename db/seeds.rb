@@ -37,7 +37,7 @@ all_tweets = [
  "Make what is valuable important.",
  "Believe in yourself."]
 
-data_load = {users: 500, tweets_per_user: 20}
+data_load = {users: 500, tweets_per_user: 1}
 
 no_of_batches = 5
 user_batch_size = data_load[:users] / no_of_batches
@@ -96,7 +96,7 @@ for i in 1..data_load[:users] do  # don't use .times, then id will be 0, bad.
         content:   all_tweets.sample,
         likes:     0,
         comments:  0,
-        users_id: i,
+        user_id: i,
         created_at: DT_NOW,
         updated_at: DT_NOW
         }
