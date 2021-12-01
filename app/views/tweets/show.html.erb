@@ -38,7 +38,7 @@
   <% if comment.tweet_id == @tweet.id %>
   <div class="card border-0" style="background: whitesmoke;">
 
-      <% user = User.find(comment.user_id).paginate(:page => params[:page]).order('id DESC') %>
+      <% user = User.find(comment.user_id) %>
       <div style="color: blue;  margin: 2;">
       <%= link_to  user.first_name, "/users/profile/"+user.id.to_s%>
         <span style="float:right;">
