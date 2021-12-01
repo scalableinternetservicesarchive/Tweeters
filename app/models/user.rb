@@ -1,12 +1,14 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  self.per_page = 10
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
         has_many :tweets, foreign_key: :user_id
         has_many :followers
         has_many :profiles
+        
 
   def self.search(first_name)
     if first_name
@@ -17,3 +19,5 @@ class User < ApplicationRecord
     end
   end
 end
+
+WillPaginate.per_page = 10
