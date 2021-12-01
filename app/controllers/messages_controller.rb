@@ -21,13 +21,10 @@ class MessagesController < ApplicationController
 
     @other_user = User.find_by(id: @other_id)
 
-    @chatMessages = Message.where(to_user: @other_id, from_user: current_user.id).or(Message.where(from_user: @other_id, to_user: current_user.id)).map{|msg|
-      if msg.from_user.to_i==current_user.id
-        {from: "You", body: msg.content, time: msg.created_at, ava: 7}
-      else
-        {from: @other_user.first_name, body: msg.content, time: msg.created_at, ava: 6}
-      end
-    }
+    @chatMessages_ = Message.where(to_user: @other_id, from_user: current_user.id)
+    .or(Message.where(from_user: @other_id, to_user: current_user.id))
+    .paginate(:page => params[:page])
+    
 
   end
 

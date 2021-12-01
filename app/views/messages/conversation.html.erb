@@ -13,7 +13,7 @@
 						<%end%>
 						<a href=<%="/conversation/" + user_talked.id.to_s%> class="list-group-item list-group-item-action border-0">
 							<div class="d-flex align-items-start">
-								
+
 								<img src=<%="https://bootdey.com/img/Content/avatar/avatar"+user_ava.to_s+".png"%> class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
 								<div class="flex-grow-1 ml-3">
 									<%=user_talked.first_name%> <%=user_talked.last_name%>
@@ -53,8 +53,14 @@
 
 						<div class="position-relative">
 							<div class="chat-messages p-4">
-
-								<%for cm in @chatMessages do%>
+								<%@chatMessages = @chatMessages_.map{|msg|%>
+									<%if msg.from_user.to_i==current_user.id%>
+										<%{from: "You", body: msg.content, time: msg.created_at, ava: 7}%>
+									<%else%>
+										<%{from: @other_user.first_name, body: msg.content, time: msg.created_at, ava: 6}%>
+									<%end%>
+								<%}%>
+								<% @chatMessages.each do |cm| %>
 								<%if cm[:from].eql?"You"%>
 								<div class="chat-message-right pb-4">
 								<%else%>
@@ -70,7 +76,9 @@
 									</div>
 								</div>
 								<%end%>
-								
+								<%= will_paginate @chatMessages_, renderer: BootstrapPagination::Rails %>
+
+
 
 							</div>
 						</div>
@@ -85,7 +93,7 @@
 					<%else%>
 					<h2>
 					<br/>
-						&emsp;Select a conversation to start chatting.					
+						&emsp;Select a conversation to start chatting.
 					</h2>
 
 				<%end%>
