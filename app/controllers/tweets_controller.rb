@@ -16,7 +16,7 @@ class TweetsController < ApplicationController
 
   # GET /tweets/1
   def show
-    @comments = Comment.where(tweet_id: params[:id]).paginate(:page => params[:page]).order('id DESC')
+    @comments = Comment.where(tweet_id: params[:id]).includes(:tweet).includes(:user).paginate(:page => params[:page]).order('id DESC')
     @user = User.find_by(id:@tweet.user_id)
   end
 
