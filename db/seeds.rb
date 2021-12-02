@@ -39,12 +39,12 @@ all_tweets = [
  "Make what is valuable important.",
  "Believe in yourself."]
 
-data_load = {users: 500, tweets_per_user: 20, comments_per_tweet: 20}
+data_load = {users: 500, tweets_per_user: 20, comments_per_user: 20}
 
 no_of_batches = 5
 user_batch_size = data_load[:users] / no_of_batches
 tweet_batch_size = user_batch_size * data_load[:tweets_per_user]
-comment_batch_size = tweet_batch_size * data_load[:comments_per_tweet]
+comment_batch_size = user_batch_size * data_load[:comments_per_user]
 
 p user_batch_size
 p tweet_batch_size
@@ -109,18 +109,21 @@ for i in 1..data_load[:users] do  # don't use .times, then id will be 0, bad.
 
     tweets.append(new_tweet.clone)
     # Tweet.create!(new_tweet)
-
-    for k in 1..data_load[:comments_per_tweet] do
-      new_comment = {
-          content:   all_tweets.sample,
-          user_id: i,
-          tweet_id: j,
-          created_at: DT_NOW,
-          updated_at: DT_NOW
-          }
-      comments.append(new_comment.clone)
-    end
   end
+
+  tweetid = 1
+  for k in 1..data_load[:comments_per_user] do
+    new_comment = {
+        content:   all_tweets.sample,
+        user_id: i,
+        tweet_id: tweetid,
+        created_at: DT_NOW,
+        updated_at: DT_NOW
+        }
+    comments.append(new_comment.clone)
+    tweetid += 1
+  end
+
 end
 
 # User.insert_all(users)
