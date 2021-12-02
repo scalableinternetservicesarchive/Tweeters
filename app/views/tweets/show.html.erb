@@ -33,38 +33,39 @@
 <% end %>
 </div>
 
+<% cache(cache_key_for_comment_list) do %>
+  <% @comments.each do |comment| %>
+    <% cache(cache_key_for_individual_comment(comment)) do %>
+      <% if comment.tweet_id == @tweet.id %>
+        <div class="card border-0" style="background: whitesmoke;">
 
-<% @comments.each do |comment| %>
-  <% if comment.tweet_id == @tweet.id %>
-  <div class="card border-0" style="background: whitesmoke;">
+          <% user = comment.user %>
+          <div style="color: blue;  margin: 2;">
+          <%= link_to  user.first_name, "/users/profile/"+user.id.to_s%>
+            <span style="float:right;">
+              at <%= comment.updated_at.strftime('%m/%d/%Y %H:%Mhrs') %>
+            </span>
+          </div>
 
-      <% user = comment.user %>
-      <div style="color: blue;  margin: 2;">
-      <%= link_to  user.first_name, "/users/profile/"+user.id.to_s%>
-        <span style="float:right;">
-          at <%= comment.updated_at.strftime('%m/%d/%Y %H:%Mhrs') %>
-        </span>
-      </div>
-
-    <div class="card-body">
-      <p class="card-text"><%= comment.content %></p> 
-      
-
-      <div class="container">
-            <div class="row">
-              <div class="col-md-3">  
-                <%= link_to 'Edit', edit_comment_path(comment), class:"btn btn-outline-primary" if user_signed_in?&&current_user.id==comment.user_id%>
-                <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" if user_signed_in?&&current_user.id==comment.user_id%>
-              </div>
-          </div>          
-        </div>
-
-    </div></div>
-    
-  <br>
+          <div class="card-body">
+            <p class="card-text"><%= comment.content %></p> 
+            <div class="container">
+                <div class="row">
+                  <div class="col-md-3">  
+                    <%= link_to 'Edit', edit_comment_path(comment), class:"btn btn-outline-primary" if user_signed_in?&&current_user.id==comment.user_id%>
+                    <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" if user_signed_in?&&current_user.id==comment.user_id%>
+                  </div>
+                </div>          
+            </div>
+          </div>
+        </div> 
+      <br>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>
-<%= will_paginate @comments, renderer: BootstrapPagination::Rails %>
+<br>
 
+<%= will_paginate @comments, renderer: BootstrapPagination::Rails %>
 
 <br>
