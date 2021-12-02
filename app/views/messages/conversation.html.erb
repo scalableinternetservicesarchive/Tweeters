@@ -4,7 +4,7 @@
 		<div class="card">
 			<div class="row g-0">
 				<div class="col-12 col-lg-5 col-xl-3 border-right">
-                    <%for user_talked in @user_all do%>
+                    <%@user_all.each do |user_talked| %>
 					<%next if user_talked.blank? %>
 						<%if user_talked.id.to_i!=@other_id.to_i%>
 						<%user_ava = Random.rand(1...5) %>
@@ -49,6 +49,8 @@
 
 
 
+
+
 						<div class="position-relative">
 							<div class="chat-messages p-4">
 								<%@chatMessages = @chatMessages_.map{|msg|%>
@@ -74,7 +76,7 @@
 									</div>
 								</div>
 								<%end%>
-
+								<%= will_paginate @chatMessages_, renderer: BootstrapPagination::Rails %>
 
 
 

@@ -10,20 +10,20 @@ class MessagesController < ApplicationController
   def conversation
     @other_id =  params[:other]
 
-
     @user_all = Message.where(to_user: current_user.id).or(Message.where(from_user: current_user.id)).map{ |record|
       if record.to_user.to_i == current_user.id
-        User.where(id: record.from_user).first
+        record.from_user
       elsif record.from_user.to_i == current_user.id
-        User.where(id: record.to_user).first
+        record.to_user
       end
-    }.uniq
+    }.uniq.map { |user_id|
+    User.where(id: user_id).first  }
 
     @other_user = User.find_by(id: @other_id)
 
     @chatMessages_ = Message.where(to_user: @other_id, from_user: current_user.id)
     .or(Message.where(from_user: @other_id, to_user: current_user.id))
-    # .paginate(:page => params[:page])
+    .paginate(:page => params[:page])
 
 
   end
