@@ -8,7 +8,7 @@ class TweetsController < ApplicationController
     # if user_signed_in?
     #   @users_following = Follower.where(follower_id: current_user.id).to_a.map{|hash| hash.user_id}
     #   @users_following<<current_user.id
-    #   @tweets = Tweet.where(users_id: @users_following).paginate(:page => params[:page]).order('id DESC')
+    #   @tweets = Tweet.where(user_id: @users_following).paginate(:page => params[:page]).order('id DESC')
     # else
     #   @tweets = Tweet.paginate(:page => params[:page]).order('id DESC')
     # end
@@ -18,7 +18,7 @@ class TweetsController < ApplicationController
   # GET /tweets/1
   def show
     @comments = Comment.all
-    @user = User.find_by(id:@tweet.users_id)
+    @user = User.find_by(id:@tweet.user_id)
   end
 
   # GET /tweets/new
@@ -71,6 +71,6 @@ class TweetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tweet_params
-      params.require(:tweet).permit(:content, :likes, :comments, :users_id)
+      params.require(:tweet).permit(:content, :likes, :comments, :user_id)
     end
 end

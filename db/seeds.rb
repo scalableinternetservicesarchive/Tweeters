@@ -96,7 +96,7 @@ for i in 1..data_load[:users] do  # don't use .times, then id will be 0, bad.
         content:   all_tweets.sample,
         likes:     0,
         comments:  0,
-        users_id: i,
+        user_id: i,
         created_at: DT_NOW,
         updated_at: DT_NOW
         }

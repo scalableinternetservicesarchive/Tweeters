@@ -18,8 +18,8 @@
 <%end%>
 
 <% @tweets.each do |tweet| %>
-<%next if User.where(id: tweet.users_id).empty?%>
-<% @user = User.find(tweet.users_id) %>
+<%next if User.where(id: tweet.user_id).empty?%>
+<% @user = User.find(tweet.user_id) %>
 <div class="shadow p-3 mb-5 rounded" style="background: #Ebf6fb;">
   <div class="card px-2 border-0" style="background: #Ebf6fb;">
     <h5 style="color: blue; margin: 2;">
