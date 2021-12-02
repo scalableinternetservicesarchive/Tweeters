@@ -49,8 +49,6 @@
 
 
 
-
-
 						<div class="position-relative">
 							<div class="chat-messages p-4">
 								<%@chatMessages = @chatMessages_.map{|msg|%>
@@ -76,7 +74,7 @@
 									</div>
 								</div>
 								<%end%>
-								<%= will_paginate @chatMessages_, renderer: BootstrapPagination::Rails %>
+
 
 
 

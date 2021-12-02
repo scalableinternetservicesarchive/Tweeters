@@ -23,8 +23,8 @@ class MessagesController < ApplicationController
 
     @chatMessages_ = Message.where(to_user: @other_id, from_user: current_user.id)
     .or(Message.where(from_user: @other_id, to_user: current_user.id))
-    .paginate(:page => params[:page])
-    
+    # .paginate(:page => params[:page])
+
 
   end
 
