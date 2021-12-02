@@ -4,11 +4,11 @@
   <clients>
     <client host="localhost" maxusers="32768" use_controller_vm="true" />
   </clients>
-
+  workflow-5-with-caching-single-t3-micro
   <servers>
     <!-- <server host="localhost" port="3000" type="tcp"></server> -->
      <!-- <server host="samridhi.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
-    <server host="workflow-5-pagination.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+    <server host="workflow-5-caching.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
 
   <load>
