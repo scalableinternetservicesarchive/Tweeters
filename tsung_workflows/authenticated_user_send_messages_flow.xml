@@ -8,7 +8,7 @@
   <servers>
     <!-- <server host="localhost" port="3000" type="tcp"></server> -->
      <!-- <server host="samridhi.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
-    <server host="nikunjpreoptimised.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+    <server host="workflow-5-pagination-t3-large-1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
 
   <load>
