@@ -4,7 +4,8 @@
 		<div class="card">
 			<div class="row g-0">
 				<div class="col-12 col-lg-5 col-xl-3 border-right">
-                    <%@user_all.each do |user_talked| %>
+				<% cache(cache_key_for_user_conversations_page(current_user)) do %>
+        <%@user_all.each do |user_talked| %>
 					<%next if user_talked.blank? %>
 						<%if user_talked.id.to_i!=@other_id.to_i%>
 						<%user_ava = Random.rand(1...5) %>
@@ -53,6 +54,7 @@
 
 						<div class="position-relative">
 							<div class="chat-messages p-4">
+								<% cache(cache_key_for_user_messages_page(current_user, @other_user)) do %>
 								<%@chatMessages = @chatMessages_.map{|msg|%>
 									<%if msg.from_user.to_i==current_user.id%>
 										<%{from: "You", body: msg.content, time: msg.created_at, ava: 7}%>
@@ -76,6 +78,7 @@
 									</div>
 								</div>
 								<%end%>
+								<%end%>
 								<%= will_paginate @chatMessages_, renderer: BootstrapPagination::Rails %>
 
 
@@ -95,7 +98,7 @@
 					<br/>
 						&emsp;Select a conversation to start chatting.
 					</h2>
-
+						<%end%>
 				<%end%>
 			</div>
 		</div>
