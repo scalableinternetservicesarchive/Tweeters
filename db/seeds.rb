@@ -147,7 +147,7 @@ for i in 1..10 do
     message = {
         # id: i,
         to_user: data_load[:users] + 1,
-        from_user: 1,
+        from_user: 501,
         created_at: DT_NOW,
         updated_at: DT_NOW,
         content: all_tweets.sample
