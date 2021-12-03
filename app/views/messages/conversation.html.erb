@@ -10,8 +10,6 @@
 						<%user_ava = user_talked.id%7+1 %>
 						<a href=<%="/conversation/" + user_talked.id.to_s%> class="list-group-item list-group-item-action border-0">
 							<div class="d-flex align-items-start">
-
-								<img src=<%="https://bootdey.com/img/Content/avatar/avatar"+user_ava.to_s+".png"%> class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
 								<div class="flex-grow-1 ml-3">
 									<%=user_talked.first_name%> <%=user_talked.last_name%>
 									<div class="small"><span class="fas fa-circle chat-online"></span> Online</div>
@@ -29,7 +27,6 @@
 						<div class="py-2 px-4 border-bottom d-none d-lg-block">
 							<div class="d-flex align-items-center py-1">
 								<div class="position-relative">
-									<img src=<%="https://bootdey.com/img/Content/avatar/avatar" + (@other_id.to_i%7+1).to_s + ".png"%> class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
 								</div>
 								<div class="flex-grow-1 pl-3">
 									<strong><%=@other_user.first_name%></strong>
@@ -65,7 +62,7 @@
 								<div class="chat-message-left pb-4">
 								<%end%>
 									<div>
-										<img src=<%="https://bootdey.com/img/Content/avatar/avatar"+cm[:ava].to_s+".png"%> class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+
 										<div class="text-muted small text-nowrap mt-2"><%= cm[:time].strftime("%I:%M %p")%></div>
 									</div>
 									<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
