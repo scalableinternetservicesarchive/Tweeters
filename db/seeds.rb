@@ -37,7 +37,7 @@ all_tweets = [
  "Make what is valuable important.",
  "Believe in yourself."]
 
-data_load = {users: 500, tweets_per_user: 20}
+data_load = {users: 500, tweets_per_user: 1000}
 
 no_of_batches = 5
 user_batch_size = data_load[:users] / no_of_batches
@@ -59,52 +59,23 @@ PASSWORD = 'password'
 # PASSWORD_HASH = User.digest(PASSWORD)
 PASSWORD_HASH = 'password'
 # user_ids = (1..data_load[:users]).to_a
-users = []
+
 tweets = []
-for i in 1..data_load[:users] do  # don't use .times, then id will be 0, bad.
 
-    # t.string "email", default: "", null: false
-    # t.string "encrypted_password", default: "", null: false
-    # t.string "reset_password_token"
-    # t.datetime "reset_password_sent_at"
-    # t.datetime "remember_created_at"
-    # t.datetime "created_at", precision: 6, null: false
-    # t.datetime "updated_at", precision: 6, null: false
-    # t.string "first_name"
-    # t.string "last_name"
-    # t.text "bio"
-    # t.string "location"
-
-  d = {
-      # id: i,
-      email:   "user#{i}@cs291A.com",
-      encrypted_password:    PASSWORD_HASH,
-      reset_password_token:  "reset_token_#{i}",
-      reset_password_sent_at:DT_NOW,
-      remember_created_at:   DT_NOW,
+for j in 1..data_load[:tweets_per_user] do
+  new_tweet = {
+      content:   all_tweets.sample,
+      likes:     0,
+      comments:  0,
+      user_id: 1,
       created_at: DT_NOW,
-      updated_at: DT_NOW,
-      first_name: "First_name_#{i}",
-      last_name: "Second_name_#{i}",
-      bio: all_tweets.sample,
-      location: "Santa Barbara"
+      updated_at: DT_NOW
       }
-  users.append(d.clone)
 
-  for j in 1..data_load[:tweets_per_user] do
-    new_tweet = {
-        content:   all_tweets.sample,
-        likes:     0,
-        comments:  0,
-        user_id: i,
-        created_at: DT_NOW,
-        updated_at: DT_NOW
-        }
-
-    tweets.append(new_tweet.clone)
-    # Tweet.create!(new_tweet)
-  end
+  tweets.append(new_tweet.clone)
+  # Tweet.create!(new_tweet)
 end
+
 
 # User.insert_all(users)
 # Tweet.insert_all(tweets)
@@ -113,10 +84,8 @@ end
 # puts "Created #{User.count} users" + DateTime.current.strftime(" on %A, %b. %-d at %-l:%M:%S")
 #
 for i in 1..no_of_batches do
-  User.insert_all(users.slice((i-1)*user_batch_size, user_batch_size))
   Tweet.insert_all(tweets.slice((i-1)*tweet_batch_size, tweet_batch_size))
 
   puts "Tweets count : #{Tweet.count} " + DateTime.current.strftime(" on %A, %b. %-d at %-l:%M:%S")
-  puts "Created #{User.count} users" + DateTime.current.strftime(" on %A, %b. %-d at %-l:%M:%S")
 
 end

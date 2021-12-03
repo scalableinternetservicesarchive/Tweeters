@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE tsung SYSTEM "/usr/local/share/tsung/tsung-1.0.dtd" [] >
+<!DOCTYPE tsung SYSTEM "/opt/homebrew/Cellar/tsung/1.7.0/share/tsung/tsung-1.0.dtd">
 <tsung loglevel="notice">
   <clients>
     <client host="localhost" maxusers="32768" use_controller_vm="true" />
@@ -7,7 +7,8 @@
 
   <servers>
     <!-- <server host="localhost" port="3000" type="tcp"></server> -->
-    <server host="satyam.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+     <server host="satyam2.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+    <!-- <server host="nikunjbaid1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
   </servers>
 
   <load>
@@ -23,7 +24,7 @@
     <arrivalphase phase="4" duration="5" unit="second">
       <users arrivalrate="8" unit="second"></users>
     </arrivalphase>
-    </arrivalphase phase="5" duration="5" unit="second">
+    <arrivalphase phase="5" duration="5" unit="second">
       <users arrivalrate="16" unit="second"></users>
     </arrivalphase>
     <arrivalphase phase="6" duration="5" unit="second">
@@ -46,12 +47,18 @@
   <options>
     <!-- Set connection timeout to 2 seconds -->
     <option name="global_ack_timeout" value="300000"></option>
+    <option name="file_server" id='userdb' value="/home/ec2-user/userlist.csv"/>
   </options>
-
-  <sessions>
-    <session name="user_tweets" type="ts_http" weight="1">
+  
+  <sessions>    
+    <session name="user_login_tweets_deletes" type="ts_http" weight="1">     
 
       <transaction name="login">
+        <!-- sets dynamic variables from csv list with id userlist -->
+        <setdynvars sourcetype="file" fileid="userdb" delimiter="," order="iter">
+          <var name="tweet_cont" />
+          <var name="tweet_id" />
+        </setdynvars>
 
         <request>
           <dyn_variable name="authenticity_token"></dyn_variable>
@@ -60,45 +67,51 @@
 
         <thinktime value='1' random='true'/>
 
+        <!-- parses dynamic variables user_email, user_id and authenticity_token to url-encoded variables -->
         <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> 
           <var name="authenticity_token" /> 
+        </setdynvars>
+        
+        <setdynvars sourcetype="eval"
+                    code="fun({Pid,DynVars})->
+                              {ok,Val}=ts_dynvars:lookup(tweet_id,DynVars),
+                              http_uri:encode(Val) end.">
+          <var name="tweet_id" />
+        </setdynvars>
+        <setdynvars sourcetype="eval"
+                    code="fun({Pid,DynVars})->
+                              {ok,Val}=ts_dynvars:lookup(tweet_cont,DynVars),
+                              http_uri:encode(Val) end.">
+          <var name="tweet_cont" />
         </setdynvars>
 
         <request subst="true">
           <http url="/users/sign_in" version="1.1" method="POST"
             contents="user[email]=a@a.com&amp;authenticity_token=%%_authenticity_token%%&amp;
-                      user[password]=abcabc&amp;commit=Log+in"
+                      user[password]=qweqwe&amp;commit=Log+in"
             content_type="application/x-www-form-urlencoded">
           </http>
-        </request>    
+        </request>  
 
-        <thinktime value='2' random='true'/>
+        <thinktime value='1'/>
 
         <request subst="true">
-          <dyn_variable name="authenticity_token"></dyn_variable>
           <http url="/tweets" method="POST"
-            contents="authenticity_token=%%_authenticity_token%%&amp;tweet[content]=Hello Tweet&amp;
-                      commit=Create Tweet&amp;tweet[likes]=0&amp;tweet[comments]=0&amp;tweet[user_id]=51"
+            contents="authenticity_token=%%_authenticity_token%%&amp;tweet[content]=%%_tweet_cont%%&amp;
+                      commit=Create Tweet&amp;tweet[likes]=0&amp;tweet[comments]=0"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
+        <thinktime value='1'/>
 
         <request subst="true">
-          <http url="/tweets" version="1.1" method="GET"
-            contents="authenticity_token=%%_authenticity_token%%"
+          <http url="/tweets/%%_tweet_id%%" method="POST"
+            contents="authenticity_token=%%_authenticity_token%%&amp;_method=delete"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
-
+        
       </transaction>
     </session>
   </sessions>
-
-  <!--sessions>
-    <session name="example" type="ts_http" weight="1">
-      <request><http method="GET" url="/tweets"></http></request>
-       <request><http method="GET" url="/tweets"></http></request> -->
-      <!-- <request><http method="GET" url="/project/"></http></request> -->
-    <!-- </session>
-  </sessions-->
 </tsung>
