@@ -7,11 +7,7 @@
 				<% cache(cache_key_for_user_conversations_page(current_user)) do %>
         <%@user_all.each do |user_talked| %>
 					<%next if user_talked.blank? %>
-						<%if user_talked.id.to_i!=@other_id.to_i%>
-						<%user_ava = Random.rand(1...5) %>
-						<%else%>
-						<%user_ava = 6%>
-						<%end%>
+						<%user_ava = user_talked.id%7+1 %>
 						<a href=<%="/conversation/" + user_talked.id.to_s%> class="list-group-item list-group-item-action border-0">
 							<div class="d-flex align-items-start">
 
@@ -33,7 +29,7 @@
 						<div class="py-2 px-4 border-bottom d-none d-lg-block">
 							<div class="d-flex align-items-center py-1">
 								<div class="position-relative">
-									<img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+									<img src=<%="https://bootdey.com/img/Content/avatar/avatar"+(@other_id%7+1).to_s+".png"%> class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
 								</div>
 								<div class="flex-grow-1 pl-3">
 									<strong><%=@other_user.first_name%></strong>
@@ -93,12 +89,21 @@
 						</div>
 
 					</div>
+<<<<<<< HEAD
 					<%else%>
 					<h2>
 					<br/>
 						&emsp;Select a conversation to start chatting.
 					</h2>
 						<%end%>
+=======
+				<%else%>
+				<h2>
+				<br/>
+					&emsp;Select a conversation to start chatting.					
+				</h2>
+
+>>>>>>> cf1b997a2d9736cc4efc1281df2c15804b296454
 				<%end%>
 			</div>
 		</div>

@@ -42,7 +42,11 @@ all_tweets = [
  "Make what is valuable important.",
  "Believe in yourself."]
 
+<<<<<<< HEAD
 data_load = {users: 5, tweets_per_user: 20, no_of_messages_per_user_pair: 1000}
+=======
+data_load = {users: 500, tweets_per_user: 10, no_of_messages_per_user_pair: 100}
+>>>>>>> cf1b997a2d9736cc4efc1281df2c15804b296454
 
 no_of_batches = 5
 user_batch_size = data_load[:users] / no_of_batches
@@ -102,7 +106,7 @@ for i in 1..data_load[:users] do  # don't use .times, then id will be 0, bad.
         content:   all_tweets.sample,
         likes:     0,
         comments:  0,
-        users_id: i,
+        user_id: i,
         created_at: DT_NOW,
         updated_at: DT_NOW
         }
@@ -150,4 +154,8 @@ for i in 1..no_of_batches do
 end
 
 Message.insert_all(messages)
+<<<<<<< HEAD
 puts "Messages count : #{Message.count} " + DateTime.current.strftime(" on %A, %b. %-d at %-l:%M:%S")
+=======
+puts "Messages count : #{Message.count} " + DateTime.current.strftime(" on %A, %b. %-d at %-l:%M:%S")
+>>>>>>> cf1b997a2d9736cc4efc1281df2c15804b296454
