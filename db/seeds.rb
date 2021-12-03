@@ -37,11 +37,10 @@ all_tweets = [
  "Make what is valuable important.",
  "Believe in yourself."]
 
-data_load = {users: 500, tweets_per_user: 1500}
+data_load = {users: 500, tweets_per_user: 11000}
 
 no_of_batches = 5
-user_batch_size = data_load[:users] / no_of_batches
-tweet_batch_size = user_batch_size * data_load[:tweets_per_user]
+tweet_batch_size =  data_load[:tweets_per_user] / no_of_batches
 
 p user_batch_size
 p tweet_batch_size
