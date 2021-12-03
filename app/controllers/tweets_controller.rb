@@ -6,6 +6,7 @@ class TweetsController < ApplicationController
   # GET /tweets
   def index
     if user_signed_in?
+      caches_page :index
       @users_following = Follower.where(follower_id: current_user.id).to_a.map{|hash| hash.user_id}
       @users_following<<current_user.id
       @tweets = Tweet.where(user_id: @users_following).includes(:user).paginate(:page => params[:page]).order('id DESC')

@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>Tweeter App</title>
+
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="tOeuy-4X2O25g8-bGdD0zqztZO0hnrC78dfqoMLkt6NvEJe-nLExPhQE3wPHqZTyQvkLhUOmozcZ7_UTPNbtNw" />
+    
+
+    <link rel="stylesheet" media="all" href="/assets/application.debug-d0a8ca8dc97b46984b6d2f26857f9d9702e985d73b6f11be59d572be7c9aae03.css" data-turbolinks-track="reload" />
+    <script src="/packs/js/application-c36662cefabc9281cfa7.js" data-turbolinks-track="reload"></script>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/tweets">Tweeter</a>
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse w-100 order-1 order-md-0 dual-collapse2" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto ">
+      <li class="nav-item">
+        <form action="/test" accept-charset="UTF-8" method="get">
+          <input type="text" name="search" id="search" />
+          <input type="submit" value="Search" class="btn btn-outline-primary" data-disable-with="Search" />
+</form>      </li>
+       </ul>
+  </div>
+ <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
+
+        <li class="nav-item">
+          <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href=edit_user_registration_path role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Settings
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="/users/edit">Change Account Info</a>
+              <a class="dropdown-item" href="/users/profile/1">Profile</a>
+              <a class="dropdown-item" href="/tweets">Home</a>
+              <a class="dropdown-item" rel="nofollow" data-method="delete" href="/users/sign_out">Log Out</a>
+            </div>
+          </div>
+         
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/conversation/-1">Messages</a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link" rel="nofollow" data-method="delete" href="/users/sign_out">Log Out</a>
+        </li>
+        </ul>
+    </ul>
+  </div>
+</nav>
+
+    <div class="container">
+   <br/>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  Tweet was successfully created.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+      
+
+<form action="/tweets" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="soKiKMVVXDA9DsxVXtG8C7nvyG0orq_rkueD38FDN_ZOBifOjlwJCs-qjJT8VQl7kB6ddLd6hZF_2gtLmkleNQ" />
+
+<div class="container">
+ <div class="row">
+        <div class="col-md-8">          
+          <div class="field form-group">
+            <textarea class="form-control blue-border-focus" rows="4" placeholder="What&#39;s on your mind?" name="tweet[content]" id="tweet_content">
+</textarea>
+          </div>
+        </div>
+        <div class="col-md-1">
+            <div class="actions">
+              <input type="submit" name="commit" value="Create Tweet" class="btn btn-outline-primary" data-disable-with="Create Tweet" />
+            </div>
+        </div>
+  </div>
+</div>
+  <div class="field form-group">
+    <input value="0" type="hidden" name="tweet[likes]" id="tweet_likes" />
+  </div>
+
+  <div class="field form-group">
+    <input value="0" type="hidden" name="tweet[comments]" id="tweet_comments" />
+  </div>
+
+  <div class="field form-group">
+    <input id="tweets_user_id" class="form-control" value="1" type="hidden" name="tweet[user_id]" />
+  </div>  
+</form>
+<br>
+<h1 class="display-6"> Samridhi&#39;s Feed </h1>
+<br>
+
+
+<div class="shadow p-3 mb-5 rounded" style="background: #Ebf6fb;">
+  <div class="card px-2 border-0" style="background: #Ebf6fb;">
+    <h5 style="color: blue; margin: 2;">
+      Samridhi
+        <span style="float:right;">
+          at 12/02/2021 15:43hrs
+        </span>
+      </h5>
+    <div class="card-body1 card-body">
+      <p class="card-text">dsdss</p>
+
+      <a class="btn btn-outline-secondary stretched-link" href="/tweets/7">Show</a>
+
+    </div></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <p class="card-text">0 likes </p>
+        </div>
+        <div class="col-md-3">
+          <form action="/likes" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="qXb98b4V_PbxnRguJpJeuDYPMaATS9UbrWuQbUPFa8014MZiTCKO0-4r9DOBJHda9aaHgw_vERvOvlaw4zLfPg" />
+
+  <div class="field">
+      <input value="1" type="hidden" name="like[user_id]" id="like_user_id" />
+  </div>
+
+  <div class="field">
+      <input value="7" type="hidden" name="like[tweet_id]" id="like_tweet_id" />
+    </div>
+
+  <div class="actions">
+    <input type="submit" name="commit" value="Like" class="btn btn-outline-primary" data-disable-with="Like" />
+  </div>
+</form>
+        </div>
+        <div class="col-md-3">
+          <p class="card-text">0 comments </p>
+        </div>
+        <div class="col-md-3">
+          <a data-confirm="Are you sure?" class="btn btn-outline-danger" rel="nofollow" data-method="delete" href="/tweets/7">Delete</a>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <br>
+ %>
+ %>
+<div class="shadow p-3 mb-5 rounded" style="background: #Ebf6fb;">
+  <div class="card px-2 border-0" style="background: #Ebf6fb;">
+    <h5 style="color: blue; margin: 2;">
+      Samridhi
+        <span style="float:right;">
+          at 12/02/2021 15:19hrs
+        </span>
+      </h5>
+    <div class="card-body1 card-body">
+      <p class="card-text">fdfdfd</p>
+
+      <a class="btn btn-outline-secondary stretched-link" href="/tweets/6">Show</a>
+
+    </div></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <p class="card-text">0 likes </p>
+        </div>
+        <div class="col-md-3">
+          <form action="/likes" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="vhqT09zuYLMAsuCY2grgMKFizXBisZyEP2Q7gTnxxf0ijKhALtkSlh8EDIV9vMnSYst7U34VWIRcsf1cmQZxDg" />
+
+  <div class="field">
+      <input value="1" type="hidden" name="like[user_id]" id="like_user_id" />
+  </div>
+
+  <div class="field">
+      <input value="6" type="hidden" name="like[tweet_id]" id="like_tweet_id" />
+    </div>
+
+  <div class="actions">
+    <input type="submit" name="commit" value="Like" class="btn btn-outline-primary" data-disable-with="Like" />
+  </div>
+</form>
+        </div>
+        <div class="col-md-3">
+          <p class="card-text">0 comments </p>
+        </div>
+        <div class="col-md-3">
+          <a data-confirm="Are you sure?" class="btn btn-outline-danger" rel="nofollow" data-method="delete" href="/tweets/6">Delete</a>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <br>
+ %>
+ %>
+<div class="shadow p-3 mb-5 rounded" style="background: #Ebf6fb;">
+  <div class="card px-2 border-0" style="background: #Ebf6fb;">
+    <h5 style="color: blue; margin: 2;">
+      Samridhi
+        <span style="float:right;">
+          at 12/02/2021 15:10hrs
+        </span>
+      </h5>
+    <div class="card-body1 card-body">
+      <p class="card-text">Hello Tweet</p>
+
+      <a class="btn btn-outline-secondary stretched-link" href="/tweets/5">Show</a>
+
+    </div></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <p class="card-text">0 likes </p>
+        </div>
+        <div class="col-md-3">
+          <form action="/likes" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="p4QZIfh8G9BwlyCaLyw_HJc2MUS5Cg9vYXLlxwoktuQ7EiKyCktp9W8hzIeImhb-VJ-HZ6Wuy28CpyMaqtMCFw" />
+
+  <div class="field">
+      <input value="1" type="hidden" name="like[user_id]" id="like_user_id" />
+  </div>
+
+  <div class="field">
+      <input value="5" type="hidden" name="like[tweet_id]" id="like_tweet_id" />
+    </div>
+
+  <div class="actions">
+    <input type="submit" name="commit" value="Like" class="btn btn-outline-primary" data-disable-with="Like" />
+  </div>
+</form>
+        </div>
+        <div class="col-md-3">
+          <p class="card-text">0 comments </p>
+        </div>
+        <div class="col-md-3">
+          <a data-confirm="Are you sure?" class="btn btn-outline-danger" rel="nofollow" data-method="delete" href="/tweets/5">Delete</a>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <br>
+ %>
+ %>
+<div class="shadow p-3 mb-5 rounded" style="background: #Ebf6fb;">
+  <div class="card px-2 border-0" style="background: #Ebf6fb;">
+    <h5 style="color: blue; margin: 2;">
+      Samridhi
+        <span style="float:right;">
+          at 12/02/2021 15:10hrs
+        </span>
+      </h5>
+    <div class="card-body1 card-body">
+      <p class="card-text">Hello Tweet</p>
+
+      <a class="btn btn-outline-secondary stretched-link" href="/tweets/4">Show</a>
+
+    </div></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <p class="card-text">0 likes </p>
+        </div>
+        <div class="col-md-3">
+          <form action="/likes" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="N63QSb5vbwUujt2mL2QZtwnRQzlIy4-FmvNbt03hLbCrO-vaTFgdIDE4MbuI0jBVynj1GlRvS4X5Jp1q7RaZQw" />
+
+  <div class="field">
+      <input value="1" type="hidden" name="like[user_id]" id="like_user_id" />
+  </div>
+
+  <div class="field">
+      <input value="4" type="hidden" name="like[tweet_id]" id="like_tweet_id" />
+    </div>
+
+  <div class="actions">
+    <input type="submit" name="commit" value="Like" class="btn btn-outline-primary" data-disable-with="Like" />
+  </div>
+</form>
+        </div>
+        <div class="col-md-3">
+          <p class="card-text">0 comments </p>
+        </div>
+        <div class="col-md-3">
+          <a data-confirm="Are you sure?" class="btn btn-outline-danger" rel="nofollow" data-method="delete" href="/tweets/4">Delete</a>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <br>
+ %>
+ %>
+<div class="shadow p-3 mb-5 rounded" style="background: #Ebf6fb;">
+  <div class="card px-2 border-0" style="background: #Ebf6fb;">
+    <h5 style="color: blue; margin: 2;">
+      Samridhi
+        <span style="float:right;">
+          at 12/02/2021 15:10hrs
+        </span>
+      </h5>
+    <div class="card-body1 card-body">
+      <p class="card-text">Hello Tweet</p>
+
+      <a class="btn btn-outline-secondary stretched-link" href="/tweets/3">Show</a>
+
+    </div></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <p class="card-text">0 likes </p>
+        </div>
+        <div class="col-md-3">
+          <form action="/likes" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="JZ-DZiNYMXEDMDac2ReqNsGTpXfzva2E-rN3eURt6Im5Cbj10W9DVByG2oF-oYPUAjoTVO8ZaYSZZrGk5Jpceg" />
+
+  <div class="field">
+      <input value="1" type="hidden" name="like[user_id]" id="like_user_id" />
+  </div>
+
+  <div class="field">
+      <input value="3" type="hidden" name="like[tweet_id]" id="like_tweet_id" />
+    </div>
+
+  <div class="actions">
+    <input type="submit" name="commit" value="Like" class="btn btn-outline-primary" data-disable-with="Like" />
+  </div>
+</form>
+        </div>
+        <div class="col-md-3">
+          <p class="card-text">0 comments </p>
+        </div>
+        <div class="col-md-3">
+          <a data-confirm="Are you sure?" class="btn btn-outline-danger" rel="nofollow" data-method="delete" href="/tweets/3">Delete</a>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <br>
+ %>
+ %>
+<div class="shadow p-3 mb-5 rounded" style="background: #Ebf6fb;">
+  <div class="card px-2 border-0" style="background: #Ebf6fb;">
+    <h5 style="color: blue; margin: 2;">
+      Samridhi
+        <span style="float:right;">
+          at 12/02/2021 15:10hrs
+        </span>
+      </h5>
+    <div class="card-body1 card-body">
+      <p class="card-text">Hello Tweet</p>
+
+      <a class="btn btn-outline-secondary stretched-link" href="/tweets/2">Show</a>
+
+    </div></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <p class="card-text">0 likes </p>
+        </div>
+        <div class="col-md-3">
+          <form action="/likes" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="7yBfj9cnJ-phMESoeqE1emjEAnKOgxm_YIu8YZS12UZztmQcJRBVz36GqLXdFxyYq220UZIn3b8DXnq8NEJttQ" />
+
+  <div class="field">
+      <input value="1" type="hidden" name="like[user_id]" id="like_user_id" />
+  </div>
+
+  <div class="field">
+      <input value="2" type="hidden" name="like[tweet_id]" id="like_tweet_id" />
+    </div>
+
+  <div class="actions">
+    <input type="submit" name="commit" value="Like" class="btn btn-outline-primary" data-disable-with="Like" />
+  </div>
+</form>
+        </div>
+        <div class="col-md-3">
+          <p class="card-text">0 comments </p>
+        </div>
+        <div class="col-md-3">
+          <a data-confirm="Are you sure?" class="btn btn-outline-danger" rel="nofollow" data-method="delete" href="/tweets/2">Delete</a>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <br>
+ %>
+ %>
+<div class="shadow p-3 mb-5 rounded" style="background: #Ebf6fb;">
+  <div class="card px-2 border-0" style="background: #Ebf6fb;">
+    <h5 style="color: blue; margin: 2;">
+      Samridhi
+        <span style="float:right;">
+          at 12/02/2021 15:10hrs
+        </span>
+      </h5>
+    <div class="card-body1 card-body">
+      <p class="card-text">Hello Tweet</p>
+
+      <a class="btn btn-outline-secondary stretched-link" href="/tweets/1">Show</a>
+
+    </div></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <p class="card-text">0 likes </p>
+        </div>
+        <div class="col-md-3">
+          <form action="/likes" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="LR_NA5kUf9xN68_9zpbm8NySxRo-RVisp2TOSXKSwPexifaQayMN-VJdI-BpIM8SHztzOSLhnKzEsQiU0mV0BA" />
+
+  <div class="field">
+      <input value="1" type="hidden" name="like[user_id]" id="like_user_id" />
+  </div>
+
+  <div class="field">
+      <input value="1" type="hidden" name="like[tweet_id]" id="like_tweet_id" />
+    </div>
+
+  <div class="actions">
+    <input type="submit" name="commit" value="Like" class="btn btn-outline-primary" data-disable-with="Like" />
+  </div>
+</form>
+        </div>
+        <div class="col-md-3">
+          <p class="card-text">0 comments </p>
+        </div>
+        <div class="col-md-3">
+          <a data-confirm="Are you sure?" class="btn btn-outline-danger" rel="nofollow" data-method="delete" href="/tweets/1">Delete</a>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <br>
+
+
+
+<br>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script async nonce="" type="text/javascript" id="mini-profiler" src="/mini-profiler-resources/includes.js?v=35a79b300ab5afa978cb59af0b05e059" data-css-url="/mini-profiler-resources/includes.css?v=35a79b300ab5afa978cb59af0b05e059" data-version="35a79b300ab5afa978cb59af0b05e059" data-path="/mini-profiler-resources/" data-current-id="kivzs8fhgm2l3n6s5j4f" data-ids="kivzs8fhgm2l3n6s5j4f,q6hsmeiokyuo4oszvm4f,cqjbcwiankkildz7brjx" data-horizontal-position="left" data-vertical-position="top" data-trivial="false" data-children="false" data-max-traces="20" data-controls="false" data-total-sql-count="false" data-authorized="true" data-toggle-shortcut="alt+p" data-start-hidden="false" data-collapse-results="true" data-html-container="body" data-hidden-custom-fields="" data-turbo-permanent="false"></script>
+</body>
+</html>
