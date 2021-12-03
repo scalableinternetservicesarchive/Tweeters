@@ -42,7 +42,6 @@ data_load = {users: 500, tweets_per_user: 11000}
 no_of_batches = 5
 tweet_batch_size =  data_load[:tweets_per_user] / no_of_batches
 
-p user_batch_size
 p tweet_batch_size
 
 # ActiveRecord::Base.logger.level = 1

@@ -18,8 +18,9 @@
 <%end%>
 
 <% @tweets.each do |tweet| %>
-<%next if User.where(id: tweet.user_id).empty?%>
-<% @user = User.find(tweet.user_id) %>
+<%# TOFIX : <%next if User.where(id: tweet.user_id).empty?%> %>
+<% @user = tweet.user %>
+<%# <% cache(cache_key_for_user(@user)) do %> %>
 <div class="shadow p-3 mb-5 rounded" style="background: #Ebf6fb;">
   <div class="card px-2 border-0" style="background: #Ebf6fb;">
     <h5 style="color: blue; margin: 2;">
@@ -62,4 +63,3 @@
   <br>
 <% end %>
 <%= will_paginate @tweets, renderer: BootstrapPagination::Rails %>
-<br>
