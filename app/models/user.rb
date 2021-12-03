@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
         has_many :tweets, foreign_key: :user_id
         has_many :followers
-        has_many :comments
         has_many :profiles
 
   def self.search(first_name)
