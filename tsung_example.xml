@@ -1,15 +1,13 @@
-
-   
 <?xml version="1.0"?>
-<!DOCTYPE tsung SYSTEM "/usr/local/share/tsung/tsung-1.0.dtd" [] >
+<!DOCTYPE tsung SYSTEM "/opt/homebrew/Cellar/tsung/1.7.0/share/tsung/tsung-1.0.dtd">
 <tsung loglevel="notice">
   <clients>
     <client host="localhost" maxusers="32768" use_controller_vm="true" />
   </clients>
 
   <servers>
-    <!-- <server host="localhost" port="3000" type="tcp"></server> -->
-     <server host="workflow1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+    <server host="localhost" port="3000" type="tcp"></server>
+     <!-- <server host="workflow1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
     <!-- <server host="nikunjbaid1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
   </servers>
 
@@ -20,7 +18,7 @@
     <arrivalphase phase="2" duration="5" unit="second">
       <users arrivalrate="2" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="3" duration="5" unit="second">
+    <!-- <arrivalphase phase="3" duration="5" unit="second">
       <users arrivalrate="4" unit="second"></users>
     </arrivalphase>
     <arrivalphase phase="4" duration="5" unit="second">
@@ -43,7 +41,7 @@
     </arrivalphase>
     <arrivalphase phase="10" duration="5" unit="second">
       <users arrivalrate="512" unit="second"></users>
-    </arrivalphase>
+    </arrivalphase> -->
   </load>
 
   <options>
@@ -52,9 +50,9 @@
   </options>
 
   <sessions>
-    <session name="user_tweets" type="ts_http" weight="1">
+    <session name="viewtweets" type="ts_http" probability="40">
 
-      <transaction name="login">
+      <transaction name="viewtweets">
 
         <request>
           <dyn_variable name="authenticity_token"></dyn_variable>
@@ -73,14 +71,134 @@
           </http>
         </request> -->
 
+       <request subst="true">
+          <http url="/tweets" version="1.1" method="GET">
+          </http>
+        </request>
+      </transaction>
+    </session>
+
+    <session name="createtweets" type="ts_http" probability="20">
+
+      <transaction name="createtweet">
+
+        <request>
+          <dyn_variable name="authenticity_token"></dyn_variable>
+          <http method="GET" url="/users/sign_in"></http>
+        </request>
+
+        <thinktime value='1' random='true'/>
+
+        <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> <var name="authenticity_token" /> </setdynvars>
+
+        <request subst="true">
+          <http url="/users/sign_in" version="1.1" method="POST"
+            contents="user[email]=samridhi@gmail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      user[password]=samridhi&amp;commit=Log+in"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
+        <request subst="true">
+          <dyn_variable name="authenticity_token"></dyn_variable>
+          <http url="/tweets" method="POST"
+            contents="authenticity_token=%%_authenticity_token%%&amp;tweet[content]=Hello Tweet&amp;
+                      commit=Create Tweet&amp;tweet[likes]=0&amp;tweet[comments]=0&amp;tweet[user_id]=501"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
         <request subst="true">
           <http url="/tweets" version="1.1" method="GET">
           </http>
         </request>
 
       </transaction>
+    </session>
+
+    <session name="createcomments" type="ts_http" probability="20">
+
+      <transaction name="createcomment">
+
+        <request>
+          <dyn_variable name="authenticity_token"></dyn_variable>
+          <http method="GET" url="/users/sign_in"></http>
+        </request>
+
+        <thinktime value='1' random='true'/>
+
+        <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> <var name="authenticity_token" /> </setdynvars>
+
+        <request subst="true">
+          <http url="/users/sign_in" version="1.1" method="POST"
+            contents="user[email]=samridhi@gmail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      user[password]=samridhi&amp;commit=Log+in"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
+        <request subst="true">
+          <dyn_variable name="authenticity_token"></dyn_variable>
+          <http url="/tweets" method="POST"
+            contents="authenticity_token=%%_authenticity_token%%&amp;tweet[content]=Hello Tweet&amp;
+                      commit=Create Tweet&amp;tweet[likes]=0&amp;tweet[comments]=0&amp;tweet[user_id]=501"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
+        <request subst="true">
+          <http url="/comments" version="1.1" method="POST"
+            contents="comment[tweet_id]=10&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      comment[content]=Sample Tweet&amp;comment[user_id]=501&amp;commit=Add Comment"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+      </transaction>
+    </session>
+
+    <session name="usermessaging" type="ts_http" probability="20">
+
+      <transaction name="createmessage">
+
+        <request>
+          <dyn_variable name="authenticity_token"></dyn_variable>
+          <http method="GET" url="/users/sign_in"></http>
+        </request>
+
+        <thinktime value='1' random='true'/>
+
+        <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> <var name="authenticity_token" /> </setdynvars>
+
+        <request subst="true">
+          <http url="/users/sign_in" version="1.1" method="POST"
+            contents="user[email]=samridhi@gmail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      user[password]=samridhi&amp;commit=Log+in"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
+
+
+        <request subst="true">
+          <http url="/conversation/1" version="1.1" method="GET"
+            contents="authenticity_token=%%_authenticity_token%%"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
+        <!-- <request subst="true">
+          <http url="/comments" version="1.1" method="POST"
+            contents="comment[tweet_id]=10002&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      comment[content]=Jii&amp;comment[user_id]=501&amp;commit=Add Comment"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request> -->
+
+      </transaction>
 
     </session>
+
+
   </sessions>
 
   <!-- <sessions>
