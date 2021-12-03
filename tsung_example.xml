@@ -6,6 +6,7 @@
   </clients>
 
   <servers>
+
     <server host="localhost" port="3000" type="tcp"></server>
      <!-- <server host="workflow1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
     <!-- <server host="nikunjbaid1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
@@ -41,7 +42,7 @@
     </arrivalphase>
     <arrivalphase phase="10" duration="5" unit="second">
       <users arrivalrate="512" unit="second"></users>
-    </arrivalphase> -->
+    </arrivalphase>
   </load>
 
   <options>
@@ -198,6 +199,33 @@
 
     </session>
 
+    <session name="show_tweet_comments" type="ts_http" weight="1">
+      <transaction name="login">
+        <request>
+          <dyn_variable name="authenticity_token"></dyn_variable>
+          <http method="GET" url="/users/sign_in"></http>
+        </request>
+
+        <thinktime value='1' random='true'/>
+
+        <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> <var name="authenticity_token" /> </setdynvars>
+
+        <request subst="true">
+          <http url="/users/sign_in" version="1.1" method="POST"
+            contents="user[email]=vino@mail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      user[password]=vinothini&amp;commit=Log+in"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
+        <request subst="true">
+          <http url="/tweets/1" version="1.1" method="GET"
+            contents="authenticity_token=%%_authenticity_token%%"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+      </transaction>
+    </session>
 
   </sessions>
 

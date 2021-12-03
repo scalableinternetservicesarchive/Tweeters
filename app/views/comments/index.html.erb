@@ -28,3 +28,4 @@
 <br>
 
 <%= link_to 'New Comment', new_comment_path %>
+<%= will_paginate @comments, renderer: BootstrapPagination::Rails %>
