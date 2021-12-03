@@ -10,6 +10,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
+/tsung_logs/*
+/tsung_graphs/*
 !/log/.keep
 !/tmp/.keep
 

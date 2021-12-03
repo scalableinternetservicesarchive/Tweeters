@@ -7,16 +7,17 @@ class TweetsController < ApplicationController
   def index
     if user_signed_in?
       @users_following = Follower.where(follower_id: current_user.id).to_a.map{|hash| hash.user_id}
-      @users_following << current_user.id
+      @users_following<<current_user.id
       @tweets = Tweet.where(user_id: @users_following).includes(:user).paginate(:page => params[:page]).order('id DESC')
     else
       @tweets = Tweet.paginate(:page => params[:page]).includes(:user).order('id DESC')
     end
+    # @tweets = Tweet.all
   end
 
   # GET /tweets/1
   def show
-    @comments = Comment.all
+    @comments = Comment.where(tweet_id: params[:id]).includes(:tweet).includes(:user).paginate(:page => params[:page]).order('id DESC')
     @user = User.find_by(id:@tweet.user_id)
   end
 

@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
-<!DOCTYPE tsung SYSTEM "/opt/homebrew/Cellar/tsung/1.7.0/share/tsung/tsung-1.0.dtd">
+<!DOCTYPE tsung SYSTEM "/usr/local/share/tsung/tsung-1.0.dtd" [] >
 <tsung loglevel="notice">
   <clients>
     <client host="localhost" maxusers="32768" use_controller_vm="true" />
   </clients>
 
   <servers>
-    <server host="localhost" port="3000" type="tcp"></server>
-     <!-- <server host="samridhi.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
-    <!-- <server host="nikunjbaid1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
+    <!-- <server host="localhost" port="3000" type="tcp"></server> -->
+    <server host="vinothini.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
 
   <load>
@@ -27,7 +26,7 @@
     <arrivalphase phase="5" duration="5" unit="second">
       <users arrivalrate="16" unit="second"></users>
     </arrivalphase>
-    <!-- <arrivalphase phase="6" duration="5" unit="second">
+    <arrivalphase phase="6" duration="5" unit="second">
       <users arrivalrate="32" unit="second"></users>
     </arrivalphase>
     <arrivalphase phase="7" duration="5" unit="second">
@@ -41,7 +40,7 @@
     </arrivalphase>
     <arrivalphase phase="10" duration="5" unit="second">
       <users arrivalrate="512" unit="second"></users>
-    </arrivalphase> -->
+    </arrivalphase>
   </load>
 
   <options>
@@ -65,28 +64,18 @@
 
         <request subst="true">
           <http url="/users/sign_in" version="1.1" method="POST"
-            contents="user[email]=samridhi@gmail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
-                      user[password]=samridhi&amp;commit=Log+in"
+            contents="user[email]=vino@mail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      user[password]=vinothini&amp;commit=Log+in"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
 
-
-        <!-- <request subst="true">
-          <http url="/comments" version="1.1" method="POST"
-            contents="comment[tweet_id]=10002&amp;authenticity_token=%%_authenticity_token%%&amp;
-                      comment[content]=Jii&amp;comment[user_id]=501&amp;commit=Add Comment"
-            content_type="application/x-www-form-urlencoded">
-          </http>
-        </request> -->
-
         <request subst="true">
-          <http url="/tweets/" version="1.1" method="GET"
+          <http url="/tweets/1" version="1.1" method="GET"
             contents="authenticity_token=%%_authenticity_token%%"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
-
       </transaction>
 
     </session>

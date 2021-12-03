@@ -7,27 +7,55 @@ class MessagesController < ApplicationController
   def index
   end
 
+
+  # def get_all_users
+  #   user_cache = Rails.cache.read("user/conversations/#{current_user.id}")
+  #   if(user_cache == nil)
+  #     user_cache = Message.where(to_user: current_user.id).or(Message.where(from_user: current_user.id)).map{ |record|
+  #       if record.to_user.to_i == current_user.id
+  #         record.from_user
+  #       elsif record.from_user.to_i == current_user.id
+  #         record.to_user
+  #       end
+  #     }.uniq.map { |user_id|
+  #     User.where(id: user_id).first  }
+  #     Rails.cache.write("user/conversations/#{current_user.id}", user_cache, expires_in: 20.minute)
+  #     user_cache
+  #   else
+  #     user_cache
+  #   end
+  #   Rails.cache.fetch("user/conversations/#{current_user.id}/#{User.maximum(:id)}") do
+  # # Only executed if the cache does not already have a value for this key
+  #       puts "Crunching the numbers..."
+  #       Message.where(to_user: current_user.id).or(Message.where(from_user: current_user.id)).map{ |record|
+  #         if record.to_user.to_i == current_user.id
+  #           record.from_user
+  #         elsif record.from_user.to_i == current_user.id
+  #           record.to_user
+  #         end
+  #       }.uniq.map { |user_id|
+  #       User.where(id: user_id).first }
+  #   end
+  # end
+
   def conversation
-    @other_id =  params[:other].to_i
-
-
+    @other_id =  params[:other]
+    # @user_all = get_all_users
     @user_all = Message.where(to_user: current_user.id).or(Message.where(from_user: current_user.id)).map{ |record|
       if record.to_user.to_i == current_user.id
-        User.where(id: record.from_user).first
+        record.from_user
       elsif record.from_user.to_i == current_user.id
-        User.where(id: record.to_user).first
+        record.to_user
       end
-    }.uniq
+    }.uniq.map { |user_id|
+    User.where(id: user_id).first  }
 
     @other_user = User.find_by(id: @other_id)
 
-    @chatMessages = Message.where(to_user: @other_id, from_user: current_user.id).or(Message.where(from_user: @other_id, to_user: current_user.id)).map{|msg|
-      if msg.from_user.to_i==current_user.id
-        {from: "You", body: msg.content, time: msg.created_at, ava: current_user.id%7+1}
-      else
-        {from: @other_user.first_name, body: msg.content, time: msg.created_at, ava: @other_id%7+1}
-      end
-    }
+    @chatMessages_ = Message.where(to_user: @other_id, from_user: current_user.id)
+    .or(Message.where(from_user: @other_id, to_user: current_user.id))
+    .paginate(:page => params[:page])
+
 
   end
 
