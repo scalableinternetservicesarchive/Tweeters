@@ -142,7 +142,7 @@ end
 #
 for i in 1..no_of_batches do
   User.insert_all(users.slice((i-1)*user_batch_size, user_batch_size))
-  Tweet.insert_all(tweets.slice((i-1)*tweet_batch_size, tweet_batch_size))
+  # Tweet.insert_all(tweets.slice((i-1)*tweet_batch_size, tweet_batch_size))
 
   puts "Tweets count : #{Tweet.count} " + DateTime.current.strftime(" on %A, %b. %-d at %-l:%M:%S")
   puts "Created #{User.count} users" + DateTime.current.strftime(" on %A, %b. %-d at %-l:%M:%S")

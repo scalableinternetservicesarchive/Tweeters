@@ -4,12 +4,13 @@
 		<div class="card">
 			<div class="row g-0">
 				<div class="col-12 col-lg-5 col-xl-3 border-right">
-                    <%for user_talked in @user_all do%>
+				<% cache(cache_key_for_user_conversations_page(current_user)) do %>
+        <%@user_all.each do |user_talked| %>
 					<%next if user_talked.blank? %>
 						<%user_ava = user_talked.id%7+1 %>
 						<a href=<%="/conversation/" + user_talked.id.to_s%> class="list-group-item list-group-item-action border-0">
 							<div class="d-flex align-items-start">
-								
+
 								<img src=<%="https://bootdey.com/img/Content/avatar/avatar"+user_ava.to_s+".png"%> class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
 								<div class="flex-grow-1 ml-3">
 									<%=user_talked.first_name%> <%=user_talked.last_name%>
@@ -28,7 +29,7 @@
 						<div class="py-2 px-4 border-bottom d-none d-lg-block">
 							<div class="d-flex align-items-center py-1">
 								<div class="position-relative">
-									<img src=<%="https://bootdey.com/img/Content/avatar/avatar"+(@other_id%7+1).to_s+".png"%> class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+									<img src=<%="https://bootdey.com/img/Content/avatar/avatar" + (@other_id.to_i%7+1).to_s + ".png"%> class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
 								</div>
 								<div class="flex-grow-1 pl-3">
 									<strong><%=@other_user.first_name%></strong>
@@ -49,8 +50,15 @@
 
 						<div class="position-relative">
 							<div class="chat-messages p-4">
-
-								<%for cm in @chatMessages do%>
+								<% cache(cache_key_for_user_messages_page(current_user, @other_user)) do %>
+								<%@chatMessages = @chatMessages_.map{|msg|%>
+									<%if msg.from_user.to_i==current_user.id%>
+										<%{from: "You", body: msg.content, time: msg.created_at, ava: 7}%>
+									<%else%>
+										<%{from: @other_user.first_name, body: msg.content, time: msg.created_at, ava: 6}%>
+									<%end%>
+								<%}%>
+								<% @chatMessages.each do |cm| %>
 								<%if cm[:from].eql?"You"%>
 								<div class="chat-message-right pb-4">
 								<%else%>
@@ -66,7 +74,10 @@
 									</div>
 								</div>
 								<%end%>
-								
+								<%end%>
+								<%= will_paginate @chatMessages_, renderer: BootstrapPagination::Rails %>
+
+
 
 							</div>
 						</div>
@@ -78,12 +89,12 @@
 						</div>
 
 					</div>
-				<%else%>
-				<h2>
-				<br/>
-					&emsp;Select a conversation to start chatting.					
-				</h2>
-
+					<%else%>
+					<h2>
+					<br/>
+						&emsp;Select a conversation to start chatting.
+					</h2>
+						<%end%>
 				<%end%>
 			</div>
 		</div>

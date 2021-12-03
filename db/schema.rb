@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_24_022836) do
+ActiveRecord::Schema.define(version: 2021_12_02_230102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 2021_11_24_022836) do
     t.integer "from_user"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["from_user"], name: "index_messages_on_from_user"
+    t.index ["to_user"], name: "index_messages_on_to_user"
   end
 
   create_table "profiles", force: :cascade do |t|
