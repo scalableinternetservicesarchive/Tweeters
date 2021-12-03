@@ -146,7 +146,7 @@ for i in 1..10 do
   for j in 1..data_load[:no_of_messages_per_user_pair] do
     message = {
         # id: i,
-        to_user: data_load[:users] + 1,
+        to_user: 1,
         from_user: 501,
         created_at: DT_NOW,
         updated_at: DT_NOW,
