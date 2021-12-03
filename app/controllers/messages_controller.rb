@@ -7,11 +7,6 @@ class MessagesController < ApplicationController
   def index
   end
 
-<<<<<<< HEAD
-=======
-  def conversation
-    @other_id =  params[:other].to_i
->>>>>>> cf1b997a2d9736cc4efc1281df2c15804b296454
 
   # def get_all_users
   #   user_cache = Rails.cache.read("user/conversations/#{current_user.id}")
@@ -57,20 +52,10 @@ class MessagesController < ApplicationController
 
     @other_user = User.find_by(id: @other_id)
 
-<<<<<<< HEAD
     @chatMessages_ = Message.where(to_user: @other_id, from_user: current_user.id)
     .or(Message.where(from_user: @other_id, to_user: current_user.id))
     .paginate(:page => params[:page])
 
-=======
-    @chatMessages = Message.where(to_user: @other_id, from_user: current_user.id).or(Message.where(from_user: @other_id, to_user: current_user.id)).map{|msg|
-      if msg.from_user.to_i==current_user.id
-        {from: "You", body: msg.content, time: msg.created_at, ava: current_user.id%7+1}
-      else
-        {from: @other_user.first_name, body: msg.content, time: msg.created_at, ava: @other_id%7+1}
-      end
-    }
->>>>>>> cf1b997a2d9736cc4efc1281df2c15804b296454
 
   end
 
