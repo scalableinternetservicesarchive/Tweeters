@@ -18,3 +18,5 @@ class User < ApplicationRecord
     end
   end
 end
+
+WillPaginate.per_page = 10

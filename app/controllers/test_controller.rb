@@ -4,7 +4,7 @@ class TestController < ApplicationController
   end
 
   def index
-    @users = User.search(params[:search])
+    @users = User.search(params[:search]).paginate(:page => params[:page]).order('id DESC')
   end
 
   private

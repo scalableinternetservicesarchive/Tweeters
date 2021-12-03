@@ -43,7 +43,7 @@
     <arrivalphase phase="10" duration="5" unit="second">
       <users arrivalrate="512" unit="second"></users>
     </arrivalphase>
-  </load>
+  </load> -->
 
   <options>
     <!-- Set connection timeout to 2 seconds -->
