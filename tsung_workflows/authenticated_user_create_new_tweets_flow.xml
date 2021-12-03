@@ -78,7 +78,7 @@
           <dyn_variable name="authenticity_token"></dyn_variable>
           <http url="/tweets" method="POST"
             contents="authenticity_token=%%_authenticity_token%%&amp;tweet[content]=Hello Tweet&amp;
-                      commit=Create Tweet&amp;tweet[likes]=0&amp;tweet[comments]=0&amp;tweet[users_id]=51"
+                      commit=Create Tweet&amp;tweet[likes]=0&amp;tweet[comments]=0&amp;tweet[user_id]=51"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
