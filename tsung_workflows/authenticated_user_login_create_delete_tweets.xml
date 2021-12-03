@@ -7,7 +7,7 @@
 
   <servers>
     <!-- <server host="localhost" port="3000" type="tcp"></server> -->
-     <server host="wf3opt.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+     <server host="wf3opt-np1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
     <!-- <server host="nikunjbaid1.eba-mpffqwyy.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server> -->
   </servers>
 
