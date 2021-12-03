@@ -5,14 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Follower.delete_all
-ActiveRecord::Base.connection.reset_pk_sequence!('followers')
-Message.delete_all
-ActiveRecord::Base.connection.reset_pk_sequence!('messages')
-Tweet.delete_all
-ActiveRecord::Base.connection.reset_pk_sequence!('tweets')
+#Follower.delete_all
+#ActiveRecord::Base.connection.reset_pk_sequence!('followers')
+#Message.delete_all
+#ActiveRecord::Base.connection.reset_pk_sequence!('messages')
 Comment.delete_all
 ActiveRecord::Base.connection.reset_pk_sequence!('comments')
+Tweet.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('tweets')
 User.delete_all
 ActiveRecord::Base.connection.reset_pk_sequence!('users')
 
@@ -45,7 +45,7 @@ all_tweets = [
  "Believe in yourself."]
 
  
-data_load = {users: 500, tweets_per_user: 10, comments_per_user: 20, no_of_messages_per_user_pair: 100}
+data_load = {users: 500, tweets_per_user: 10, comments_per_user: 20}
 
 
 no_of_batches = 5
@@ -134,27 +134,27 @@ for i in 1..data_load[:users] do  # don't use .times, then id will be 0, bad.
 
 end
 
-for i in 1..10 do
+# for i in 1..10 do
 
-  # create_table "messages", force: :cascade do |t|
-  #   t.text "content"
-  #   t.integer "to_user"
-  #   t.integer "from_user"
-  #   t.datetime "created_at", precision: 6, null: false
-  #   t.datetime "updated_at", precision: 6, null: false
-  # end
-  for j in 1..data_load[:no_of_messages_per_user_pair] do
-    message = {
-        # id: i,
-        to_user: data_load[:users] + 1,
-        from_user: 1,
-        created_at: DT_NOW,
-        updated_at: DT_NOW,
-        content: all_tweets.sample
-        }
-    messages.append(message.clone)
-  end
-end
+#   # create_table "messages", force: :cascade do |t|
+#   #   t.text "content"
+#   #   t.integer "to_user"
+#   #   t.integer "from_user"
+#   #   t.datetime "created_at", precision: 6, null: false
+#   #   t.datetime "updated_at", precision: 6, null: false
+#   # end
+#   for j in 1..data_load[:no_of_messages_per_user_pair] do
+#     message = {
+#         # id: i,
+#         to_user: data_load[:users] + 1,
+#         from_user: 1,
+#         created_at: DT_NOW,
+#         updated_at: DT_NOW,
+#         content: all_tweets.sample
+#         }
+#     messages.append(message.clone)
+#   end
+# end
 
 # User.insert_all(users)
 # Tweet.insert_all(tweets)
@@ -164,7 +164,7 @@ end
 #
 for i in 1..no_of_batches do
   User.insert_all(users.slice((i-1)*user_batch_size, user_batch_size))
-  # Tweet.insert_all(tweets.slice((i-1)*tweet_batch_size, tweet_batch_size))
+  Tweet.insert_all(tweets.slice((i-1)*tweet_batch_size, tweet_batch_size))
   Comment.insert_all(comments.slice((i-1)*comment_batch_size, comment_batch_size))
 
   puts "Tweets count : #{Tweet.count} " + DateTime.current.strftime(" on %A, %b. %-d at %-l:%M:%S")
@@ -173,5 +173,5 @@ for i in 1..no_of_batches do
 
 end
 
-Message.insert_all(messages)
-puts "Messages count : #{Message.count} " + DateTime.current.strftime(" on %A, %b. %-d at %-l:%M:%S")
+# Message.insert_all(messages)
+# puts "Messages count : #{Message.count} " + DateTime.current.strftime(" on %A, %b. %-d at %-l:%M:%S")
