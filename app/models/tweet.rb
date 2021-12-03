@@ -4,4 +4,4 @@ class Tweet < ApplicationRecord
     has_many :comments
 end
 
-#WillPaginate.per_page = 10
+WillPaginate.per_page = 10
