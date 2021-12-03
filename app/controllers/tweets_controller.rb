@@ -5,14 +5,14 @@ class TweetsController < ApplicationController
 
   # GET /tweets
   def index
-    # if user_signed_in?
-    #   @users_following = Follower.where(follower_id: current_user.id).to_a.map{|hash| hash.user_id}
-    #   @users_following<<current_user.id
-    #   @tweets = Tweet.where(user_id: @users_following).paginate(:page => params[:page]).order('id DESC')
-    # else
-    #   @tweets = Tweet.paginate(:page => params[:page]).order('id DESC')
-    # end
-    @tweets = Tweet.all
+    if user_signed_in?
+      @users_following = Follower.where(follower_id: current_user.id).to_a.map{|hash| hash.user_id}
+      @users_following<<current_user.id
+      @tweets = Tweet.where(user_id: @users_following).paginate(:page => params[:page]).order('id DESC')
+    else
+      @tweets = Tweet.paginate(:page => params[:page]).order('id DESC')
+    end
+    # @tweets = Tweet.all
   end
 
   # GET /tweets/1

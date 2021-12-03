@@ -54,7 +54,7 @@
 
       <transaction name="login">
         
-        <setdynvars sourcetype="random_number" start="10" end="1500">
+        <setdynvars sourcetype="random_number" start="1" end="11000">
           <var name="randomNum" />
         </setdynvars>
 
@@ -84,8 +84,19 @@
           </http>
         </request> 
 
+        <request subst="true">
+          <http url="/comments" method="POST"
+            contents="authenticity_token=%%_authenticity_token%%&amp;
+                      comment[user_id]=1&amp;
+                      comment[tweet_id]=%%_randomNum%%&amp;
+                      comment[content]=Yo Dood&amp;
+                      commit=Add Comment"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
         <request><http method="GET" url="/tweets"></http></request>
-        <thinktime value='1'/>
+        <thinktime value='2'/>
 
         <request subst="true">
           <http url="/tweets/%%_randomNum%%" method="DELETE"

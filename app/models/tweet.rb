@@ -3,4 +3,4 @@ class Tweet < ApplicationRecord
     belongs_to :user, optional: true
 end
 
-#WillPaginate.per_page = 10
+WillPaginate.per_page = 10
